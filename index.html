@@ -2,92 +2,159 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <title>Villa Eldorado - Location saisonnière en Martinique</title>
+  <title>Villa Eldorado – Location 6 à 10 personnes en Martinique</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Location saisonnière de charme à la Villa Eldorado en Martinique. Plage, piscine, confort, services haut de gamme. Réservez dès maintenant !">
+  <meta name="description" content="Villa Eldorado : superbe maison 6 à 10 personnes avec piscine en Martinique. Réservez sur Airbnb, Booking ou contactez-nous !">
   <style>
+    :root {
+      --beige: #f6f4ec;
+      --vert-pastel: #c5e6d6;
+      --vert-foncé: #87bca4;
+      --or: #e1c699;
+      --text: #35332e;
+    }
     body {
       font-family: 'Segoe UI', Arial, sans-serif;
+      background: var(--beige);
+      color: var(--text);
       margin: 0;
-      background: #f8fafc;
-      color: #2a2a2a;
     }
     header {
-      background: linear-gradient(90deg, #00707a, #3ccfcf);
-      color: #fff;
+      background: linear-gradient(90deg, var(--beige) 80%, var(--vert-pastel));
       padding: 2rem 0 1rem 0;
       text-align: center;
     }
     header h1 {
       margin: 0;
-      font-size: 2.5rem;
+      font-size: 2.4rem;
+      color: var(--vert-foncé);
+      letter-spacing: 1px;
+    }
+    header p {
+      font-size: 1.1rem;
+      color: var(--text);
+      margin-top: 0.5rem;
     }
     nav {
-      margin-top: 1rem;
+      margin-top: 1.2rem;
     }
     nav a {
-      color: #fff;
-      margin: 0 1rem;
+      color: var(--vert-foncé);
+      margin: 0 1.1rem;
       text-decoration: none;
-      font-weight: 500;
-      transition: text-shadow 0.2s;
+      font-weight: 600;
+      padding-bottom: 2px;
+      border-bottom: 2px solid transparent;
+      transition: border-bottom 0.2s;
     }
     nav a:hover {
-      text-shadow: 0 2px 8px #0002;
+      border-bottom: 2px solid var(--vert-foncé);
     }
     .container {
-      max-width: 900px;
-      margin: 2rem auto;
+      max-width: 950px;
+      margin: 2.2rem auto;
       padding: 0 1rem;
     }
     section {
       margin-bottom: 3rem;
     }
+    .main-img {
+      width: 100%;
+      border-radius: 18px;
+      box-shadow: 0 4px 18px #0002;
+      max-height: 320px;
+      object-fit: cover;
+      margin-bottom: 1.7rem;
+    }
     .gallery {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       gap: 1rem;
+      margin-bottom: 2rem;
     }
     .gallery img {
       width: 100%;
-      border-radius: 12px;
-      box-shadow: 0 2px 12px #0001;
-      height: 170px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px #0001;
+      height: 160px;
       object-fit: cover;
       transition: transform 0.2s;
     }
     .gallery img:hover {
-      transform: scale(1.04);
+      transform: scale(1.05);
+    }
+    .badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8em;
+      margin-bottom: 1.2em;
+    }
+    .badge {
+      background: var(--vert-pastel);
+      color: var(--vert-foncé);
+      border-radius: 12px;
+      padding: 0.5em 1.2em;
+      font-size: 1em;
+      font-weight: 600;
+      box-shadow: 0 1px 6px #0001;
+      letter-spacing: 0.5px;
+      border: 1px solid var(--vert-foncé);
     }
     ul.services {
       list-style: none;
       padding: 0;
+      margin: 1.2em 0;
       columns: 2;
-      margin: 1rem 0;
     }
     ul.services li {
       margin: 0.4em 0;
-      padding-left: 1.3em;
+      padding-left: 1.2em;
       position: relative;
+      font-size: 1.07em;
     }
     ul.services li:before {
       content: "✓";
-      color: #3ccfcf;
+      color: var(--vert-foncé);
       font-weight: bold;
       position: absolute;
       left: 0;
     }
+    .resa-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5em;
+      margin: 2.2em 0 2em 0;
+      justify-content: center;
+    }
+    .resa-links a {
+      display: flex;
+      align-items: center;
+      background: var(--vert-foncé);
+      color: #fff;
+      border-radius: 10px;
+      padding: 0.75em 1.7em;
+      font-size: 1.1em;
+      font-weight: 500;
+      text-decoration: none;
+      box-shadow: 0 2px 8px #0002;
+      transition: background 0.15s, box-shadow 0.2s;
+    }
+    .resa-links a:hover {
+      background: var(--or);
+      color: var(--text);
+      box-shadow: 0 3px 15px #c5e6d666;
+    }
     .contact-form {
       background: #fff;
-      border-radius: 12px;
-      box-shadow: 0 4px 20px #0001;
-      padding: 1.5rem;
-      max-width: 480px;
-      margin: auto;
+      border-radius: 16px;
+      box-shadow: 0 6px 30px #0001;
+      padding: 2.2rem 1.5rem;
+      max-width: 500px;
+      margin: 0 auto;
     }
     .contact-form label {
       display: block;
-      margin-top: 1em;
+      margin-top: 1.1em;
       font-weight: 500;
     }
     .contact-form input, .contact-form textarea {
@@ -95,23 +162,25 @@
       padding: 0.7em;
       margin-top: 0.3em;
       border: 1px solid #cfd8dc;
-      border-radius: 6px;
+      border-radius: 7px;
       font-size: 1em;
       background: #f4f9fa;
     }
     .contact-form button {
-      margin-top: 1.5em;
-      background: #3ccfcf;
+      margin-top: 1.8em;
+      background: var(--vert-foncé);
       color: #fff;
       border: none;
-      padding: 0.8em 1.8em;
-      border-radius: 6px;
+      padding: 0.9em 2.2em;
+      border-radius: 7px;
       font-size: 1.1em;
       cursor: pointer;
+      font-weight: 600;
       transition: background 0.2s;
     }
     .contact-form button:hover {
-      background: #00707a;
+      background: var(--or);
+      color: var(--text);
     }
     footer {
       text-align: center;
@@ -119,68 +188,89 @@
       padding: 2em 0 1em 0;
       font-size: 1em;
     }
-    @media (max-width: 600px) {
-      header h1 {
-        font-size: 1.4rem;
-      }
-      ul.services {
-        columns: 1;
-      }
+    @media (max-width: 700px) {
+      header h1 { font-size: 1.3rem;}
+      .main-img { max-height: 180px; }
+      ul.services { columns: 1; }
     }
   </style>
 </head>
 <body>
   <header>
-    <h1>Villa Eldorado 972</h1>
-    <p>Votre location de rêve en Martinique</p>
+    <h1>Villa Eldorado</h1>
+    <p>Location saisonnière 6 à 10 personnes – Martinique</p>
     <nav>
       <a href="#presentation">Accueil</a>
       <a href="#photos">Photos</a>
       <a href="#services">Services</a>
+      <a href="#reserver">Réserver</a>
       <a href="#contact">Contact</a>
     </nav>
   </header>
-  
+
   <div class="container">
     <section id="presentation">
+      <img src="https://cf.bstatic.com/xdata/images/hotel/max1280x900/431701729.jpg?k=6e782322e14912b67f61e452a84e710df42f7b9789c30e444d88fced81809113&o=&hp=1" alt="Villa Eldorado - piscine" class="main-img">
+      <div class="badges">
+        <span class="badge">Piscine privée</span>
+        <span class="badge">Vue Mer</span>
+        <span class="badge">Climatisation</span>
+        <span class="badge">4 chambres</span>
+        <span class="badge">6 à 10 pers.</span>
+        <span class="badge">Proche plages</span>
+      </div>
       <h2>Bienvenue à la Villa Eldorado</h2>
       <p>
-        Découvrez le charme et le confort de notre villa située au cœur de la Martinique. Plage, piscine privée, vue imprenable, équipement haut de gamme : offrez-vous des vacances inoubliables en famille ou entre amis.
+        Offrez-vous des vacances de rêve à la <b>Villa Eldorado</b> en Martinique ! Cette maison spacieuse (jusqu’à 10 personnes) vous accueille avec sa piscine privée, une vue mer panoramique, et tout le confort moderne pour un séjour inoubliable en famille ou entre amis.
       </p>
       <p>
-        Proche des plus belles plages, marchés locaux et spots de randonnée. Tout est pensé pour votre bien-être et votre sérénité.
+        Idéalement située à Bellefontaine, la villa est proche des plages, sentiers de randonnée et des plus beaux sites de l’île. Profitez de la douceur des Antilles dans un cadre élégant et chaleureux.
       </p>
     </section>
-    
+
     <section id="photos">
       <h2>Galerie photos</h2>
       <div class="gallery">
-        <!-- Mets ici tes propres images (remplace les URLs par tes vraies photos) -->
-        <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80" alt="Vue piscine Villa">
-        <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80" alt="Plage Martinique">
-        <img src="https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=600&q=80" alt="Salon Villa">
-        <img src="https://images.unsplash.com/photo-1502082553048-f009c37129b9?auto=format&fit=crop&w=600&q=80" alt="Chambre Villa">
+        <!-- Mets ici tes propres images ou garde les exemples pour l'instant -->
+        <img src="https://cf.bstatic.com/xdata/images/hotel/max1024x768/431701735.jpg?k=a38b11b927fdd403ea5c40c4c2fc9c60a3625b64ca995b4bb1cf1d5bdf9e37b0&o=&hp=1" alt="Salon Villa">
+        <img src="https://cf.bstatic.com/xdata/images/hotel/max1024x768/431701732.jpg?k=12c618aa9d1a5c1fa0663a4bbef80a04a7e09b6d021d057c045eddfa0f8fd5b1&o=&hp=1" alt="Chambre double">
+        <img src="https://cf.bstatic.com/xdata/images/hotel/max1024x768/431701738.jpg?k=3a989ff06e23c5e70ea31f23774ad62ff56efcf17c23d8d3485ac2ed7e26b37a&o=&hp=1" alt="Vue terrasse">
+        <img src="https://cf.bstatic.com/xdata/images/hotel/max1024x768/431701736.jpg?k=bcfb6f7884f5b2626f29d76f70c77ed60a36f8c4c1c026f55761bc3f0c4380a8&o=&hp=1" alt="Piscine et jardin">
       </div>
     </section>
-    
+
     <section id="services">
       <h2>Nos services</h2>
       <ul class="services">
         <li>Piscine privée</li>
+        <li>4 chambres, 3 salles de bain</li>
         <li>Climatisation</li>
         <li>Wifi haut débit</li>
         <li>Linge de maison inclus</li>
         <li>Vue mer panoramique</li>
+        <li>Cuisine équipée (lave-vaisselle, four, micro-ondes, etc.)</li>
         <li>Équipement bébé sur demande</li>
-        <li>Cuisine toute équipée</li>
-        <li>Parking sécurisé</li>
+        <li>Machine à laver</li>
+        <li>Parking gratuit</li>
         <li>Barbecue</li>
         <li>Proche plage & commerces</li>
       </ul>
     </section>
-    
+
+    <section id="reserver">
+      <h2>Réserver</h2>
+      <div class="resa-links">
+        <a href="https://www.meilleureslocations.fr/property/villa-eldorado-6-%C3%A0-10-personnes/BC-11983327" target="_blank">Voir sur Meilleures Locations</a>
+        <a href="https://www.airbnb.com/" target="_blank">Voir sur Airbnb</a>
+        <a href="https://www.booking.com/" target="_blank">Voir sur Booking.com</a>
+      </div>
+      <p style="text-align:center;font-size:1.1em;color:#5b5d4c;">
+        Ou contactez-nous directement pour un devis personnalisé et la dispo à jour !
+      </p>
+    </section>
+
     <section id="contact">
-      <h2>Contact & réservation</h2>
+      <h2>Contact</h2>
       <div class="contact-form">
         <form action="https://formsubmit.co/ton@email.com" method="POST">
           <label for="name">Nom</label>
@@ -199,14 +289,18 @@
           
           <button type="submit">Envoyer</button>
         </form>
-        <p style="font-size:0.95em;color:#888;margin-top:1em;">ou contactez-nous par WhatsApp au <b>+596 X XX XX XX XX</b></p>
+        <p style="font-size:0.97em;color:#888;margin-top:1.2em;">
+          Ou contactez-nous par WhatsApp au <b>+596 X XX XX XX XX</b>
+        </p>
       </div>
     </section>
   </div>
-  
+
   <footer>
-    © 2025 Villa Eldorado 972 – Martinique. Site réalisé avec ♥️ par vos hôtes.<br>
-    <span style="font-size:0.9em;">Mention légale : location saisonnière déclarée en mairie</span>
+    © 2025 Villa Eldorado – Martinique. Site réalisé avec ♥️ par vos hôtes.
+    <br>
+    <span style="font-size:0.95em;">Mention légale : location saisonnière déclarée en mairie</span>
   </footer>
 </body>
 </html>
+
