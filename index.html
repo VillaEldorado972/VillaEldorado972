@@ -58,31 +58,37 @@
     section {
       margin-bottom: 3rem;
     }
-    .main-img {
+    .carousel {
+      position: relative;
       width: 100%;
+      overflow: hidden;
       border-radius: 18px;
       box-shadow: 0 4px 18px #0002;
-      max-height: 320px;
-      object-fit: cover;
       margin-bottom: 1.7rem;
     }
-    .gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 1rem;
-      margin-bottom: 2rem;
-    }
-    .gallery img {
+    .carousel img {
       width: 100%;
-      border-radius: 10px;
-      box-shadow: 0 2px 10px #0001;
-      height: 160px;
+      display: none;
+      height: 340px;
       object-fit: cover;
-      transition: transform 0.2s;
     }
-    .gallery img:hover {
-      transform: scale(1.05);
+    .carousel img.active {
+      display: block;
     }
+    .carousel button {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255,255,255,0.6);
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      padding: 0.4em 0.8em;
+      border-radius: 50%;
+    }
+    .carousel button.prev { left: 10px; }
+    .carousel button.next { right: 10px; }
+
     .badges {
       display: flex;
       flex-wrap: wrap;
@@ -100,24 +106,10 @@
       letter-spacing: 0.5px;
       border: 1px solid var(--vert-foncé);
     }
-    ul.services {
-      list-style: none;
-      padding: 0;
-      margin: 1.2em 0;
-      columns: 2;
-    }
-    ul.services li {
-      margin: 0.4em 0;
-      padding-left: 1.2em;
-      position: relative;
-      font-size: 1.07em;
-    }
-    ul.services li:before {
-      content: "✓";
+    .gallery-title {
+      margin-bottom: 1rem;
+      font-size: 1.4rem;
       color: var(--vert-foncé);
-      font-weight: bold;
-      position: absolute;
-      left: 0;
     }
     .resa-links {
       display: flex;
@@ -190,8 +182,7 @@
     }
     @media (max-width: 700px) {
       header h1 { font-size: 1.3rem;}
-      .main-img { max-height: 180px; }
-      ul.services { columns: 1; }
+      .carousel img { height: 220px; }
     }
   </style>
 </head>
@@ -210,32 +201,78 @@
 
   <div class="container">
     <section id="presentation">
-      <img src="https://cf.bstatic.com/xdata/images/hotel/max1280x900/431701729.jpg?k=6e782322e14912b67f61e452a84e710df42f7b9789c30e444d88fced81809113&o=&hp=1" alt="Villa Eldorado - piscine" class="main-img">
+      <div class="carousel" id="banner">
+        <img src="images/salon.HEIC" class="active" alt="Salon">
+        <img src="images/jardin.HEIC" alt="Jardin">
+        <img src="images/chambre_bleue.HEIC" alt="Chambre bleue">
+        <img src="images/terrasse.HEIC" alt="Terrasse">
+        <img src="images/chambre_haut.HEIC" alt="Chambre étage">
+        <img src="images/chambre_verte.HEIC" alt="Chambre verte">
+        <img src="images/sdb_haut.HEIC" alt="Salle de bain étage">
+        <button class="prev" onclick="prevSlide('banner')">‹</button>
+        <button class="next" onclick="nextSlide('banner')">›</button>
+      </div>
+
       <div class="badges">
         <span class="badge">Piscine privée</span>
-        <span class="badge">Vue Mer</span>
-        <span class="badge">Climatisation</span>
-        <span class="badge">4 chambres</span>
+        <span class="badge">3 chambres</span>
         <span class="badge">6 à 10 pers.</span>
         <span class="badge">Proche plages</span>
+        <span class="badge">Climatisation</span>
       </div>
+
       <h2>Bienvenue à la Villa Eldorado</h2>
       <p>
-        Offrez-vous des vacances de rêve à la <b>Villa Eldorado</b> en Martinique ! Cette maison spacieuse (jusqu’à 10 personnes) vous accueille avec sa piscine privée, une vue mer panoramique, et tout le confort moderne pour un séjour inoubliable en famille ou entre amis.
+        Simplifiez-vous la vie dans ce logement paisible et central pour des vacances ou un usage professionnel.
+        La Villa Eldorado est située idéalement au centre de la Martinique, permettant de rayonner sur le Nord et le Sud de l’île.
+        A moins de 5 minutes des plages, appréciez une balade au coucher du soleil, une baignade après vos journées de découvertes ou alors pratiquez des activités nautiques.
+        Louée en entier, la Villa est composée d'une suite parentale et de 2 grandes chambres climatisées au RDC.
       </p>
-      <p>
-        Idéalement située à Bellefontaine, la villa est proche des plages, sentiers de randonnée et des plus beaux sites de l’île. Profitez de la douceur des Antilles dans un cadre élégant et chaleureux.
-      </p>
+
+      <details>
+        <summary style="cursor:pointer;font-weight:600;color:var(--vert-foncé);margin-top:1em;">En savoir plus sur le logement</summary>
+        <p style="margin-top:1em;">
+          La Villa Eldorado louée en entier est composée d'une suite parentale et de 2 belles chambres au RDC.<br><br>
+          <b>La suite parentale :</b> Avec sa salle de bain et sa douche à l’italienne elle est située à l’étage et s’ouvre sur une grande terrasse extérieure couverte, endroit idéal pour déguster un ti’punch, un planteur ou quelques accras lors de vos moments de détente.<br><br>
+          <b>Les 2 chambres climatisées du rez-de-chaussée :</b> Situées au rez-de-chaussée, elles se partagent la salle de bain du bas avec sa douche à l’italienne.<br><br>
+          <b>Couchages supplémentaires :</b> Le logement bénéficie aussi d’un couchage dans le salon (canapé-lit 2 places très confort) et d’un couchage d’appoint dans l’espace bureau.<br><br>
+          <b>L'extérieur :</b> Spacieuse terrasse et grand jardin tropical arboré de 800 m². Le lieu privilégié pour admirer les étoiles le soir, profiter des bruits de la nuit tropicale, cueillir et déguster des fruits exotiques (bananes, mangues, caïmites), observer les perruches ou se détendre et profiter calmement du soleil.<br><br>
+          <b>La cuisine :</b> Bien équipée (micro-ondes, four, cafetière NESPRESSO, …) elle se prolonge d'un côté sur un espace salon avec TV (projecteur multimédia et Netflix) et de l’autre côté sur une spacieuse terrasse ensoleillée disposant de zones d’ombrages.<br><br>
+          Notre logement est aussi idéalement situé pour les voyageurs en séjour professionnel : à proximité des lycées, de l'université et des hôpitaux, dans un environnement paisible favorisant la concentration et la tranquillité.<br><br>
+          Plusieurs supermarchés se trouvent à proximité immédiate.<br><br>
+          Enfin, un <b>cadeau local de bienvenue</b> vous attend à l’arrivée : produits locaux, rafraîchissements et collations pour découvrir les saveurs de la Martinique dès votre arrivée !
+        </p>
+      </details>
     </section>
 
     <section id="photos">
       <h2>Galerie photos</h2>
-      <div class="gallery">
-        <!-- Mets ici tes propres images ou garde les exemples pour l'instant -->
-        <img src="https://cf.bstatic.com/xdata/images/hotel/max1024x768/431701735.jpg?k=a38b11b927fdd403ea5c40c4c2fc9c60a3625b64ca995b4bb1cf1d5bdf9e37b0&o=&hp=1" alt="Salon Villa">
-        <img src="https://cf.bstatic.com/xdata/images/hotel/max1024x768/431701732.jpg?k=12c618aa9d1a5c1fa0663a4bbef80a04a7e09b6d021d057c045eddfa0f8fd5b1&o=&hp=1" alt="Chambre double">
-        <img src="https://cf.bstatic.com/xdata/images/hotel/max1024x768/431701738.jpg?k=3a989ff06e23c5e70ea31f23774ad62ff56efcf17c23d8d3485ac2ed7e26b37a&o=&hp=1" alt="Vue terrasse">
-        <img src="https://cf.bstatic.com/xdata/images/hotel/max1024x768/431701736.jpg?k=bcfb6f7884f5b2626f29d76f70c77ed60a36f8c4c1c026f55761bc3f0c4380a8&o=&hp=1" alt="Piscine et jardin">
+
+      <h3 class="gallery-title">Salon & Jardin</h3>
+      <div class="carousel" id="salon">
+        <img src="images/placeholder1.jpg" class="active" alt="Salon 1">
+        <img src="images/placeholder2.jpg" alt="Salon 2">
+        <img src="images/placeholder3.jpg" alt="Jardin 1">
+        <button class="prev" onclick="prevSlide('salon')">‹</button>
+        <button class="next" onclick="nextSlide('salon')">›</button>
+      </div>
+
+      <h3 class="gallery-title">Terrasse</h3>
+      <div class="carousel" id="terrasse">
+        <img src="images/placeholder4.jpg" class="active" alt="Terrasse 1">
+        <img src="images/placeholder5.jpg" alt="Terrasse 2">
+        <img src="images/placeholder6.jpg" alt="Terrasse 3">
+        <button class="prev" onclick="prevSlide('terrasse')">‹</button>
+        <button class="next" onclick="nextSlide('terrasse')">›</button>
+      </div>
+
+      <h3 class="gallery-title">Chambres & Salles de bain</h3>
+      <div class="carousel" id="chambres">
+        <img src="images/placeholder7.jpg" class="active" alt="Chambre 1">
+        <img src="images/placeholder8.jpg" alt="Chambre 2">
+        <img src="images/placeholder9.jpg" alt="Salle de bain">
+        <button class="prev" onclick="prevSlide('chambres')">‹</button>
+        <button class="next" onclick="nextSlide('chambres')">›</button>
       </div>
     </section>
 
@@ -243,12 +280,11 @@
       <h2>Nos services</h2>
       <ul class="services">
         <li>Piscine privée</li>
-        <li>4 chambres, 3 salles de bain</li>
+        <li>3 chambres, 2 salles de bain</li>
         <li>Climatisation</li>
         <li>Wifi haut débit</li>
         <li>Linge de maison inclus</li>
-        <li>Vue mer panoramique</li>
-        <li>Cuisine équipée (lave-vaisselle, four, micro-ondes, etc.)</li>
+        <li>Cuisine équipée</li>
         <li>Équipement bébé sur demande</li>
         <li>Machine à laver</li>
         <li>Parking gratuit</li>
@@ -265,7 +301,7 @@
         <a href="https://www.booking.com/" target="_blank">Voir sur Booking.com</a>
       </div>
       <p style="text-align:center;font-size:1.1em;color:#5b5d4c;">
-        Ou contactez-nous directement pour un devis personnalisé et la dispo à jour !
+        Ou contactez-nous directement pour un devis personnalisé et la dispo à jour !
       </p>
     </section>
 
@@ -275,18 +311,12 @@
         <form action="https://formsubmit.co/ton@email.com" method="POST">
           <label for="name">Nom</label>
           <input type="text" id="name" name="name" required>
-          
           <label for="email">Email</label>
           <input type="email" id="email" name="email" required>
-          
           <label for="message">Votre message</label>
           <textarea id="message" name="message" rows="4" required></textarea>
-          
-          <!-- Anti-spam -->
           <input type="text" name="_honey" style="display:none">
-          <!-- Redirection après envoi -->
           <input type="hidden" name="_next" value="https://villaeldorado972.github.io/merci.html">
-          
           <button type="submit">Envoyer</button>
         </form>
         <p style="font-size:0.97em;color:#888;margin-top:1.2em;">
@@ -301,6 +331,22 @@
     <br>
     <span style="font-size:0.95em;">Mention légale : location saisonnière déclarée en mairie</span>
   </footer>
+
+  <script>
+    function nextSlide(id){
+      const slides = document.querySelectorAll(`#${id} img`);
+      let i = [...slides].findIndex(img => img.classList.contains("active"));
+      slides[i].classList.remove("active");
+      slides[(i+1)%slides.length].classList.add("active");
+    }
+    function prevSlide(id){
+      const slides = document.querySelectorAll(`#${id} img`);
+      let i = [...slides].findIndex(img => img.classList.contains("active"));
+      slides[i].classList.remove("active");
+      slides[(i-1+slides.length)%slides.length].classList.add("active");
+    }
+  </script>
 </body>
 </html>
+
 
