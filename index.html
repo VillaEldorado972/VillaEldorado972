@@ -335,5 +335,109 @@
   </script>
 </body>
 </html>
+/* ===== FOND GÉNÉRAL ===== */
+body {
+  background: linear-gradient(135deg, #fdf8f0 0%, #fef9ec 100%);
+}
 
+/* ===== HERO IMAGE ===== */
+.hero {
+  position: relative;
+  width: 100%;
+  height: 90vh;
+  overflow: hidden;
+}
+.hero-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.38);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  text-align: center;
+  padding: 2rem;
+}
+.hero-overlay h1 {
+  font-size: 3.5rem;
+  font-weight: 700;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.5);
+  margin-bottom: 0.5rem;
+}
+.hero-overlay p {
+  font-size: 1.4rem;
+  text-shadow: 0 1px 6px rgba(0,0,0,0.5);
+  margin-bottom: 2rem;
+}
+.btn-hero {
+  background: #e6a817;
+  color: white;
+  padding: 1rem 2.5rem;
+  border-radius: 50px;
+  text-decoration: none;
+  font-size: 1.1rem;
+  font-weight: 600;
+  transition: background 0.3s;
+}
+.btn-hero:hover { background: #c98b00; }
+
+/* ===== CARROUSEL ===== */
+.carousel {
+  position: relative;
+  max-width: 900px;
+  margin: 2rem auto;
+}
+.carousel-track-wrapper {
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+}
+.carousel-track {
+  display: flex;
+  transition: transform 0.5s ease;
+}
+.carousel-track img {
+  min-width: 100%;
+  height: 500px;
+  object-fit: cover;
+}
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255,255,255,0.85);
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  font-size: 1.8rem;
+  cursor: pointer;
+  z-index: 10;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  transition: background 0.2s;
+}
+.carousel-btn:hover { background: white; }
+.carousel-btn.prev { left: -25px; }
+.carousel-btn.next { right: -25px; }
+.carousel-dots {
+  text-align: center;
+  margin-top: 1rem;
+}
+.carousel-dots span {
+  display: inline-block;
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: #ccc;
+  margin: 0 4px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+.carousel-dots span.active { background: #e6a817; }
 
