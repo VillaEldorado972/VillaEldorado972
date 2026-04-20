@@ -320,18 +320,52 @@
   </footer>
 
   <script>
-    function nextSlide(id){
-      const slides = document.querySelectorAll(`#${id} img`);
-      let i = [...slides].findIndex(img => img.classList.contains("active"));
-      slides[i].classList.remove("active");
-      slides[(i+1)%slides.length].classList.add("active");
-    }
-    function prevSlide(id){
-      const slides = document.querySelectorAll(`#${id} img`);
-      let i = [...slides].findIndex(img => img.classList.contains("active"));
-      slides[i].classList.remove("active");
-      slides[(i-1+slides.length)%slides.length].classList.add("active");
-    }
+    // ===== CARROUSEL =====
+const carouselStates = {};
+
+function initCarousel(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  const imgs = el.querySelectorAll('.carousel-track img');
+  carouselStates[id] = { index: 0, total: imgs.length };
+
+  // Créer les points
+  const dotsContainer = document.getElementById('dots-' + id);
+  imgs.forEach((_, i) => {
+    const dot = document.createElement('span');
+    if (i === 0) dot.classList.add('active');
+    dot.onclick = () => goToSlide(id, i);
+    dotsContainer.appendChild(dot);
+  });
+
+  // Défilement automatique toutes les 4.5s
+  setInterval(() => moveCarousel(id, 1), 4500);
+}
+
+function moveCarousel(id, dir) {
+  const state = carouselStates[id];
+  state.index = (state.index + dir + state.total) % state.total;
+  updateCarousel(id);
+}
+
+function goToSlide(id, i) {
+  carouselStates[id].index = i;
+  updateCarousel(id);
+}
+
+function updateCarousel(id) {
+  const el = document.getElementById(id);
+  const state = carouselStates[id];
+  el.querySelector('.carousel-track').style.transform = `translateX(-${state.index * 100}%)`;
+  el.querySelectorAll('.carousel-dots span').forEach((d, i) => {
+    d.classList.toggle('active', i === state.index);
+  });
+}
+
+// Initialiser tous les carrousels
+document.addEventListener('DOMContentLoaded', () => {
+  initCarousel('carousel-main');
+});
   </script>
 </body>
 </html>
