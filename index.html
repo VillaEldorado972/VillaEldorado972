@@ -200,15 +200,17 @@
 
   <div class="container">
     <section id="presentation">
-  <div class="hero">
-    <img src="images/salon2 (1).jpg" alt="Villa Eldorado" class="hero-img">
-    <div class="hero-overlay">
-      <h1>Villa Eldorado</h1>
-      <p>Location saisonnière 6 à 10 personnes – Martinique</p>
-      <a href="#reserver" class="btn-hero">Réserver</a>
-    </div>
-  </div>
-</section>
+      <div class="carousel" id="banner">
+        <img src="images/salon (1).jpg" class="active" alt="Salon">
+        <img src="images/jardin (1).jpg" alt="Jardin">
+        <img src="images/chambre_bleue (1).jpg" alt="Chambre bleue">
+        <img src="images/terrasse (1).jpg" alt="Terrasse">
+        <img src="images/chambre_haut.jpg" alt="Chambre étage">
+        <img src="images/chambre_verte (1).jpg" alt="Chambre verte">
+        <img src="images/sdb_haut (1).jpg" alt="Salle de bain étage">
+        <button class="prev" onclick="prevSlide('banner')">‹</button>
+        <button class="next" onclick="nextSlide('banner')">›</button>
+      </div>
 
       <div class="badges">
         <span class="badge">3 chambres</span>
@@ -241,25 +243,38 @@
       </details>
     </section>
 
-<section id="photos">
-  <h2>Galerie photos</h2>
-  <div class="carousel" id="carousel-main">
-    <button class="carousel-btn prev" onclick="moveCarousel('carousel-main', -1)">&#8249;</button>
-    <div class="carousel-track-wrapper">
-      <div class="carousel-track">
-        <img src="images/salon (1).jpg" alt="Salon">
-        <img src="images/jardin (1).jpg" alt="Jardin">
-        <img src="images/chambre_bleue (1).jpg" alt="Chambre bleue">
-        <img src="images/terrasse (1).jpg" alt="Terrasse">
-        <img src="images/chambre_haut.jpg" alt="Chambre étage">
-        <img src="images/chambre_verte (1).jpg" alt="Chambre verte">
-        <img src="images/sdb_haut (1).jpg" alt="Salle de bain">
+    <section id="photos">
+      <h2>Galerie photos</h2>
+
+      <h3 class="gallery-title">Salon & Jardin</h3>
+      <div class="carousel" id="salon">
+        <img src="images/salon2 (1).jpg" class="active" alt="Salon 1">
+        <img src="images/salon3 (1).jpg" alt="Salon 2">
+        <img src="images/jardin2 (1).jpg" alt="Jardin 1">
+        <button class="prev" onclick="prevSlide('salon')">‹</button>
+        <button class="next" onclick="nextSlide('salon')">›</button>
       </div>
-    </div>
-    <button class="carousel-btn next" onclick="moveCarousel('carousel-main', 1)">&#8250;</button>
-    <div class="carousel-dots" id="dots-carousel-main"></div>
-  </div>
-</section>
+
+      <h3 class="gallery-title">Terrasse</h3>
+      <div class="carousel" id="terrasse">
+        <img src="images/terrasse (1).jpg" class="active" alt="Terrasse 1">
+        <img src="images/terrasse2.jpg" alt="Terrasse 2">
+        <img src="images/terrasse3.jpg" alt="Terrasse 3">
+        <button class="prev" onclick="prevSlide('terrasse')">‹</button>
+        <button class="next" onclick="nextSlide('terrasse')">›</button>
+      </div>
+
+      <h3 class="gallery-title">Chambres & Salles de bain</h3>
+      <div class="carousel" id="chambres">
+        <img src="images/chambre_haut.jpg" class="active" alt="Chambre 1">
+        <img src="images/chambre_verte (1).jpg" alt="Chambre 2">
+        <img src="images/chambre_bleue (1).jpg" alt="Chambre 3">
+        <img src="images/sdb_haut (1).jpg" alt="Salle de bain 1">
+        <img src="images/sdb_haut2 (1).jpg" alt="Salle de bain 1">
+        <button class="prev" onclick="prevSlide('chambres')">‹</button>
+        <button class="next" onclick="nextSlide('chambres')">›</button>
+      </div>
+    </section>
 
     <section id="services">
       <h2>Nos services</h2>
@@ -320,158 +335,19 @@
   </footer>
 
   <script>
-    // ===== CARROUSEL =====
-const carouselStates = {};
-
-function initCarousel(id) {
-  const el = document.getElementById(id);
-  if (!el) return;
-  const imgs = el.querySelectorAll('.carousel-track img');
-  carouselStates[id] = { index: 0, total: imgs.length };
-
-  // Créer les points
-  const dotsContainer = document.getElementById('dots-' + id);
-  imgs.forEach((_, i) => {
-    const dot = document.createElement('span');
-    if (i === 0) dot.classList.add('active');
-    dot.onclick = () => goToSlide(id, i);
-    dotsContainer.appendChild(dot);
-  });
-
-  // Défilement automatique toutes les 4.5s
-  setInterval(() => moveCarousel(id, 1), 4500);
-}
-
-function moveCarousel(id, dir) {
-  const state = carouselStates[id];
-  state.index = (state.index + dir + state.total) % state.total;
-  updateCarousel(id);
-}
-
-function goToSlide(id, i) {
-  carouselStates[id].index = i;
-  updateCarousel(id);
-}
-
-function updateCarousel(id) {
-  const el = document.getElementById(id);
-  const state = carouselStates[id];
-  el.querySelector('.carousel-track').style.transform = `translateX(-${state.index * 100}%)`;
-  el.querySelectorAll('.carousel-dots span').forEach((d, i) => {
-    d.classList.toggle('active', i === state.index);
-  });
-}
-
-// Initialiser tous les carrousels
-document.addEventListener('DOMContentLoaded', () => {
-  initCarousel('carousel-main');
-});
+    function nextSlide(id){
+      const slides = document.querySelectorAll(`#${id} img`);
+      let i = [...slides].findIndex(img => img.classList.contains("active"));
+      slides[i].classList.remove("active");
+      slides[(i+1)%slides.length].classList.add("active");
+    }
+    function prevSlide(id){
+      const slides = document.querySelectorAll(`#${id} img`);
+      let i = [...slides].findIndex(img => img.classList.contains("active"));
+      slides[i].classList.remove("active");
+      slides[(i-1+slides.length)%slides.length].classList.add("active");
+    }
   </script>
 </body>
 </html>
-/* ===== FOND GÉNÉRAL ===== */
-body {
-  background: linear-gradient(135deg, #fdf8f0 0%, #fef9ec 100%);
-}
-
-/* ===== HERO IMAGE ===== */
-.hero {
-  position: relative;
-  width: 100%;
-  height: 90vh;
-  overflow: hidden;
-}
-.hero-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-}
-.hero-overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(0,0,0,0.38);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  text-align: center;
-  padding: 2rem;
-}
-.hero-overlay h1 {
-  font-size: 3.5rem;
-  font-weight: 700;
-  text-shadow: 0 2px 12px rgba(0,0,0,0.5);
-  margin-bottom: 0.5rem;
-}
-.hero-overlay p {
-  font-size: 1.4rem;
-  text-shadow: 0 1px 6px rgba(0,0,0,0.5);
-  margin-bottom: 2rem;
-}
-.btn-hero {
-  background: #e6a817;
-  color: white;
-  padding: 1rem 2.5rem;
-  border-radius: 50px;
-  text-decoration: none;
-  font-size: 1.1rem;
-  font-weight: 600;
-  transition: background 0.3s;
-}
-.btn-hero:hover { background: #c98b00; }
-
-/* ===== CARROUSEL ===== */
-.carousel {
-  position: relative;
-  max-width: 900px;
-  margin: 2rem auto;
-}
-.carousel-track-wrapper {
-  overflow: hidden;
-  border-radius: 12px;
-  box-shadow: 0 8px 30px rgba(0,0,0,0.15);
-}
-.carousel-track {
-  display: flex;
-  transition: transform 0.5s ease;
-}
-.carousel-track img {
-  min-width: 100%;
-  height: 500px;
-  object-fit: cover;
-}
-.carousel-btn {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: rgba(255,255,255,0.85);
-  border: none;
-  border-radius: 50%;
-  width: 50px;
-  height: 50px;
-  font-size: 1.8rem;
-  cursor: pointer;
-  z-index: 10;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-  transition: background 0.2s;
-}
-.carousel-btn:hover { background: white; }
-.carousel-btn.prev { left: -25px; }
-.carousel-btn.next { right: -25px; }
-.carousel-dots {
-  text-align: center;
-  margin-top: 1rem;
-}
-.carousel-dots span {
-  display: inline-block;
-  width: 10px; height: 10px;
-  border-radius: 50%;
-  background: #ccc;
-  margin: 0 4px;
-  cursor: pointer;
-  transition: background 0.3s;
-}
-.carousel-dots span.active { background: #e6a817; }
 
