@@ -7,465 +7,89 @@
   <meta name="description" content="Villa Eldorado : superbe maison 6 à 10 personnes en Martinique. Réservez sur Airbnb, Booking ou contactez-nous !">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Lato:wght@300;400;600&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --beige: #f6f4ec;
-      --beige-fonce: #ece9de;
-      --vert-pastel: #c5e6d6;
-      --vert-fonce: #87bca4;
-      --or: #e1c699;
-      --or-fonce: #c9a84c;
-      --text: #35332e;
-      --blanc: #ffffff;
-    }
+    :root { --beige:#f6f4ec; --beige-fonce:#ece9de; --vert-pastel:#c5e6d6; --vert-fonce:#87bca4; --or:#e1c699; --or-fonce:#c9a84c; --text:#35332e; }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    body { font-family:'Lato',sans-serif; background:var(--beige); color:var(--text); }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    nav { position:fixed; top:0; left:0; right:0; z-index:100; background:rgba(246,244,236,0.95); backdrop-filter:blur(8px); display:flex; align-items:center; justify-content:space-between; padding:0.9rem 2.5rem; box-shadow:0 2px 12px rgba(0,0,0,0.07); }
+    .nav-logo { font-family:'Playfair Display',serif; font-size:1.3rem; color:var(--vert-fonce); font-weight:700; letter-spacing:1px; }
+    .nav-links a { color:var(--text); margin-left:1.8rem; text-decoration:none; font-weight:600; font-size:0.95rem; padding-bottom:2px; border-bottom:2px solid transparent; transition:color 0.2s,border-bottom 0.2s; }
+    .nav-links a:hover { color:var(--vert-fonce); border-bottom:2px solid var(--vert-fonce); }
 
-    body {
-      font-family: 'Lato', sans-serif;
-      background: var(--beige);
-      color: var(--text);
-    }
+    .hero { position:relative; width:100%; aspect-ratio:4/3; max-height:75vh; overflow:hidden; }
+    .hero-slides { width:100%; height:100%; position:relative; }
+    .hero-slides img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center; opacity:0; transition:opacity 0.9s ease; }
+    .hero-slides img.active { opacity:1; }
+    .hero-overlay { position:absolute; inset:0; background:linear-gradient(to bottom,rgba(0,0,0,0.1) 0%,rgba(0,0,0,0.52) 100%); display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:2rem; z-index:2; }
+    .hero-overlay h1 { font-family:'Playfair Display',serif; font-size:clamp(2.2rem,6vw,4.5rem); color:white; text-shadow:0 2px 20px rgba(0,0,0,0.5); margin-bottom:0.6rem; letter-spacing:2px; }
+    .hero-overlay p { font-size:clamp(1rem,2.5vw,1.3rem); color:rgba(255,255,255,0.92); text-shadow:0 1px 8px rgba(0,0,0,0.4); margin-bottom:2rem; font-weight:300; letter-spacing:1px; }
+    .btn-hero { background:var(--or-fonce); color:white; padding:0.9rem 2.5rem; border-radius:50px; text-decoration:none; font-size:1rem; font-weight:600; letter-spacing:1px; transition:background 0.3s,transform 0.2s; box-shadow:0 4px 15px rgba(0,0,0,0.3); }
+    .btn-hero:hover { background:var(--or); color:var(--text); transform:translateY(-2px); }
+    .hero-arrow { position:absolute; top:50%; transform:translateY(-50%); z-index:3; background:rgba(255,255,255,0.25); border:2px solid rgba(255,255,255,0.6); color:white; width:48px; height:48px; border-radius:50%; font-size:1.6rem; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:background 0.2s; }
+    .hero-arrow:hover { background:rgba(255,255,255,0.45); }
+    .hero-arrow.prev { left:1.2rem; }
+    .hero-arrow.next { right:1.2rem; }
 
-    /* ===== NAVIGATION ===== */
-    nav {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 100;
-      background: rgba(246, 244, 236, 0.95);
-      backdrop-filter: blur(8px);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0.9rem 2.5rem;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.07);
-    }
-    .nav-logo {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.3rem;
-      color: var(--vert-fonce);
-      font-weight: 700;
-      letter-spacing: 1px;
-    }
-    .nav-links a {
-      color: var(--text);
-      margin-left: 1.8rem;
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 0.95rem;
-      letter-spacing: 0.5px;
-      padding-bottom: 2px;
-      border-bottom: 2px solid transparent;
-      transition: color 0.2s, border-bottom 0.2s;
-    }
-    .nav-links a:hover {
-      color: var(--vert-fonce);
-      border-bottom: 2px solid var(--vert-fonce);
-    }
+    .container { max-width:960px; margin:0 auto; padding:0 1.5rem; }
+    section { padding:3.5rem 0; }
+    section h2 { font-family:'Playfair Display',serif; font-size:2rem; color:var(--vert-fonce); margin-bottom:1.5rem; position:relative; padding-bottom:0.7rem; }
+    section h2::after { content:''; position:absolute; left:0; bottom:0; width:60px; height:3px; background:var(--or-fonce); border-radius:2px; }
 
-    /* ===== HERO ===== */
-    .hero {
-      position: relative;
-      width: 100%;
-      height: 88vh;
-      min-height: 480px;
-      max-height: 750px;
-      overflow: hidden;
-    }
-    .hero-slides {
-      width: 100%;
-      height: 100%;
-      position: relative;
-    }
-    .hero-slides img {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      object-position: center;
-      opacity: 0;
-      transition: opacity 0.9s ease;
-    }
-    .hero-slides img.active {
-      opacity: 1;
-    }
-    .hero-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.5) 100%);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 2rem;
-      z-index: 2;
-    }
-    .hero-overlay h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(2.4rem, 6vw, 4.5rem);
-      color: white;
-      text-shadow: 0 2px 20px rgba(0,0,0,0.5);
-      margin-bottom: 0.6rem;
-      letter-spacing: 2px;
-    }
-    .hero-overlay p {
-      font-size: clamp(1rem, 2.5vw, 1.3rem);
-      color: rgba(255,255,255,0.92);
-      text-shadow: 0 1px 8px rgba(0,0,0,0.4);
-      margin-bottom: 2rem;
-      font-weight: 300;
-      letter-spacing: 1px;
-    }
-    .btn-hero {
-      background: var(--or-fonce);
-      color: white;
-      padding: 0.9rem 2.5rem;
-      border-radius: 50px;
-      text-decoration: none;
-      font-size: 1rem;
-      font-weight: 600;
-      letter-spacing: 1px;
-      transition: background 0.3s, transform 0.2s;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-    }
-    .btn-hero:hover {
-      background: var(--or);
-      color: var(--text);
-      transform: translateY(-2px);
-    }
-    .hero-arrow {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      z-index: 3;
-      background: rgba(255,255,255,0.25);
-      border: 2px solid rgba(255,255,255,0.6);
-      color: white;
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      font-size: 1.5rem;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: background 0.2s;
-    }
-    .hero-arrow:hover { background: rgba(255,255,255,0.45); }
-    .hero-arrow.prev { left: 1.2rem; }
-    .hero-arrow.next { right: 1.2rem; }
+    .badges { display:flex; flex-wrap:wrap; gap:0.8em; margin:1.8rem 0; }
+    .badge { background:var(--vert-pastel); color:var(--vert-fonce); border-radius:50px; padding:0.5em 1.3em; font-size:0.95em; font-weight:600; border:1.5px solid var(--vert-fonce); }
 
-    /* ===== CONTENEUR PRINCIPAL ===== */
-    .container {
-      max-width: 960px;
-      margin: 0 auto;
-      padding: 0 1.5rem;
-    }
+    #presentation p { font-size:1.05rem; line-height:1.8; margin-bottom:1rem; }
+    details summary { cursor:pointer; font-weight:600; color:var(--vert-fonce); margin-top:1em; font-size:1rem; user-select:none; }
+    details p { margin-top:1em; font-size:1rem; line-height:1.8; }
 
-    section {
-      padding: 3.5rem 0;
-    }
+    .separator { border:none; border-top:2px solid var(--beige-fonce); margin:0; }
 
-    section h2 {
-      font-family: 'Playfair Display', serif;
-      font-size: 2rem;
-      color: var(--vert-fonce);
-      margin-bottom: 1.5rem;
-      position: relative;
-      padding-bottom: 0.7rem;
-    }
-    section h2::after {
-      content: '';
-      position: absolute;
-      left: 0;
-      bottom: 0;
-      width: 60px;
-      height: 3px;
-      background: var(--or-fonce);
-      border-radius: 2px;
-    }
+    .gallery-block { margin-bottom:2.8rem; }
+    .gallery-block h3 { font-family:'Playfair Display',serif; font-size:1.2rem; color:var(--vert-fonce); margin-bottom:0.8rem; }
 
-    /* ===== BADGES ===== */
-    .badges {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.8em;
-      margin: 1.8rem 0;
-    }
-    .badge {
-      background: var(--vert-pastel);
-      color: var(--vert-fonce);
-      border-radius: 50px;
-      padding: 0.5em 1.3em;
-      font-size: 0.95em;
-      font-weight: 600;
-      border: 1.5px solid var(--vert-fonce);
-      letter-spacing: 0.3px;
-    }
+    /* RATIO 4:3 = ratio exact des photos → zéro rognage */
+    .carousel { position:relative; border-radius:14px; overflow:hidden; box-shadow:0 6px 28px rgba(0,0,0,0.13); background:var(--beige-fonce); aspect-ratio:4/3; }
+    .carousel-track { display:flex; height:100%; transition:transform 0.5s ease; }
+    .carousel-track img { min-width:100%; height:100%; object-fit:cover; object-position:center; display:block; }
+    .carousel-btn { position:absolute; top:50%; transform:translateY(-50%); background:rgba(255,255,255,0.82); border:none; border-radius:50%; width:44px; height:44px; font-size:1.4rem; cursor:pointer; z-index:5; box-shadow:0 2px 10px rgba(0,0,0,0.18); transition:background 0.2s; display:flex; align-items:center; justify-content:center; color:var(--text); }
+    .carousel-btn:hover { background:white; }
+    .carousel-btn.prev { left:12px; }
+    .carousel-btn.next { right:12px; }
+    .carousel-dots { position:absolute; bottom:12px; left:0; right:0; text-align:center; z-index:5; }
+    .carousel-dots span { display:inline-block; width:8px; height:8px; border-radius:50%; background:rgba(255,255,255,0.55); margin:0 4px; cursor:pointer; transition:background 0.3s; }
+    .carousel-dots span.active { background:white; }
 
-    /* ===== PRÉSENTATION TEXTE ===== */
-    #presentation p {
-      font-size: 1.05rem;
-      line-height: 1.8;
-      color: var(--text);
-      margin-bottom: 1rem;
-    }
-    details summary {
-      cursor: pointer;
-      font-weight: 600;
-      color: var(--vert-fonce);
-      margin-top: 1em;
-      font-size: 1rem;
-      user-select: none;
-    }
-    details p {
-      margin-top: 1em;
-      font-size: 1rem;
-      line-height: 1.8;
-    }
+    .services-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:1rem; margin-top:1.5rem; }
+    .service-item { background:white; border-radius:10px; padding:1rem 1.2rem; font-size:0.97rem; box-shadow:0 2px 8px rgba(0,0,0,0.05); display:flex; align-items:center; gap:0.5rem; }
 
-    /* ===== SÉPARATEUR ===== */
-    .separator {
-      border: none;
-      border-top: 2px solid var(--beige-fonce);
-      margin: 0;
-    }
+    .resa-links { display:flex; flex-wrap:wrap; gap:1.2em; margin:2rem 0; justify-content:center; }
+    .resa-links a { background:var(--vert-fonce); color:white; border-radius:10px; padding:0.8em 1.8em; font-size:1.05em; font-weight:600; text-decoration:none; box-shadow:0 3px 10px rgba(0,0,0,0.12); transition:background 0.2s,transform 0.2s; }
+    .resa-links a:hover { background:var(--or-fonce); transform:translateY(-2px); }
+    .resa-note { text-align:center; font-size:1.05em; color:#5b5d4c; margin-top:0.5rem; }
 
-    /* ===== CARROUSELS GALERIE ===== */
-    .gallery-block {
-      margin-bottom: 2.5rem;
-    }
-    .gallery-block h3 {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.2rem;
-      color: var(--vert-fonce);
-      margin-bottom: 0.8rem;
-    }
+    .contact-form { background:white; border-radius:16px; box-shadow:0 6px 30px rgba(0,0,0,0.07); padding:2.2rem 2rem; max-width:520px; margin:0 auto; }
+    .contact-form label { display:block; margin-top:1.1em; font-weight:600; font-size:0.95rem; }
+    .contact-form input,.contact-form textarea { width:100%; padding:0.75em; margin-top:0.3em; border:1.5px solid #d0d8dc; border-radius:8px; font-size:1em; background:#f8fafa; font-family:'Lato',sans-serif; transition:border-color 0.2s; }
+    .contact-form input:focus,.contact-form textarea:focus { outline:none; border-color:var(--vert-fonce); }
+    .contact-form button { margin-top:1.8em; background:var(--vert-fonce); color:white; border:none; padding:0.9em 2.5em; border-radius:8px; font-size:1rem; cursor:pointer; font-weight:600; font-family:'Lato',sans-serif; transition:background 0.2s,transform 0.2s; }
+    .contact-form button:hover { background:var(--or-fonce); transform:translateY(-1px); }
+    .whatsapp-note { font-size:0.97em; color:#888; margin-top:1.2em; text-align:center; }
 
-    .carousel {
-      position: relative;
-      border-radius: 14px;
-      overflow: hidden;
-      box-shadow: 0 6px 28px rgba(0,0,0,0.13);
-      background: #000;
-    }
-    .carousel-track {
-      display: flex;
-      transition: transform 0.5s ease;
-    }
-    .carousel-track img {
-      min-width: 100%;
-      height: 420px;
-      object-fit: contain;
-      object-position: center;
-      display: block;
-    }
-    .carousel-btn {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      background: rgba(255,255,255,0.8);
-      border: none;
-      border-radius: 50%;
-      width: 44px;
-      height: 44px;
-      font-size: 1.4rem;
-      cursor: pointer;
-      z-index: 5;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-      transition: background 0.2s;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--text);
-    }
-    .carousel-btn:hover { background: white; }
-    .carousel-btn.prev { left: 12px; }
-    .carousel-btn.next { right: 12px; }
+    footer { text-align:center; background:#2e2d28; color:#aaa; padding:2em 0 1.5em 0; font-size:0.95em; margin-top:1rem; }
+    footer span { font-size:0.9em; color:#888; }
 
-    .carousel-dots {
-      position: absolute;
-      bottom: 12px;
-      left: 0;
-      right: 0;
-      text-align: center;
-      z-index: 5;
-    }
-    .carousel-dots span {
-      display: inline-block;
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.5);
-      margin: 0 4px;
-      cursor: pointer;
-      transition: background 0.3s;
-    }
-    .carousel-dots span.active {
-      background: white;
-    }
+    .whatsapp-float { position:fixed; bottom:1.8rem; right:1.8rem; z-index:200; background:#25D366; color:white; border-radius:50px; padding:0.8rem 1.4rem; text-decoration:none; font-weight:700; font-size:1rem; box-shadow:0 4px 20px rgba(37,211,102,0.4); display:flex; align-items:center; gap:0.5rem; transition:transform 0.2s,box-shadow 0.2s; }
+    .whatsapp-float:hover { transform:translateY(-3px); box-shadow:0 6px 25px rgba(37,211,102,0.5); }
 
-    /* ===== SERVICES ===== */
-    #services { background: var(--beige-fonce); }
-    .services-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      gap: 1rem;
-      margin-top: 1.5rem;
-    }
-    .service-item {
-      background: white;
-      border-radius: 10px;
-      padding: 1rem 1.2rem;
-      font-size: 0.97rem;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    /* ===== RÉSERVER ===== */
-    .resa-links {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1.2em;
-      margin: 2rem 0;
-      justify-content: center;
-    }
-    .resa-links a {
-      display: flex;
-      align-items: center;
-      background: var(--vert-fonce);
-      color: #fff;
-      border-radius: 10px;
-      padding: 0.8em 1.8em;
-      font-size: 1.05em;
-      font-weight: 600;
-      text-decoration: none;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.12);
-      transition: background 0.2s, transform 0.2s;
-    }
-    .resa-links a:hover {
-      background: var(--or-fonce);
-      transform: translateY(-2px);
-    }
-    .resa-note {
-      text-align: center;
-      font-size: 1.05em;
-      color: #5b5d4c;
-      margin-top: 0.5rem;
-    }
-
-    /* ===== CONTACT ===== */
-    .contact-form {
-      background: white;
-      border-radius: 16px;
-      box-shadow: 0 6px 30px rgba(0,0,0,0.07);
-      padding: 2.2rem 2rem;
-      max-width: 520px;
-      margin: 0 auto;
-    }
-    .contact-form label {
-      display: block;
-      margin-top: 1.1em;
-      font-weight: 600;
-      font-size: 0.95rem;
-    }
-    .contact-form input,
-    .contact-form textarea {
-      width: 100%;
-      padding: 0.75em;
-      margin-top: 0.3em;
-      border: 1.5px solid #d0d8dc;
-      border-radius: 8px;
-      font-size: 1em;
-      background: #f8fafa;
-      font-family: 'Lato', sans-serif;
-      transition: border-color 0.2s;
-    }
-    .contact-form input:focus,
-    .contact-form textarea:focus {
-      outline: none;
-      border-color: var(--vert-fonce);
-    }
-    .contact-form button {
-      margin-top: 1.8em;
-      background: var(--vert-fonce);
-      color: white;
-      border: none;
-      padding: 0.9em 2.5em;
-      border-radius: 8px;
-      font-size: 1rem;
-      cursor: pointer;
-      font-weight: 600;
-      font-family: 'Lato', sans-serif;
-      transition: background 0.2s, transform 0.2s;
-    }
-    .contact-form button:hover {
-      background: var(--or-fonce);
-      transform: translateY(-1px);
-    }
-    .whatsapp-note {
-      font-size: 0.97em;
-      color: #888;
-      margin-top: 1.2em;
-      text-align: center;
-    }
-
-    /* ===== FOOTER ===== */
-    footer {
-      text-align: center;
-      background: #2e2d28;
-      color: #aaa;
-      padding: 2em 0 1.5em 0;
-      font-size: 0.95em;
-      margin-top: 1rem;
-    }
-    footer span {
-      font-size: 0.9em;
-      color: #888;
-    }
-
-    /* ===== BOUTON WHATSAPP FLOTTANT ===== */
-    .whatsapp-float {
-      position: fixed;
-      bottom: 1.8rem;
-      right: 1.8rem;
-      z-index: 200;
-      background: #25D366;
-      color: white;
-      border-radius: 50px;
-      padding: 0.8rem 1.4rem;
-      text-decoration: none;
-      font-weight: 700;
-      font-size: 1rem;
-      box-shadow: 0 4px 20px rgba(37,211,102,0.4);
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-    .whatsapp-float:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 6px 25px rgba(37,211,102,0.5);
-    }
-
-    /* ===== RESPONSIVE ===== */
-    @media (max-width: 700px) {
-      nav { padding: 0.8rem 1rem; }
-      .nav-links a { margin-left: 0.9rem; font-size: 0.85rem; }
-      .hero { height: 70vh; }
-      .carousel-track img { height: 240px; }
-      .services-grid { grid-template-columns: 1fr 1fr; }
+    @media (max-width:700px) {
+      nav { padding:0.8rem 1rem; }
+      .nav-links a { margin-left:0.8rem; font-size:0.82rem; }
+      .services-grid { grid-template-columns:1fr 1fr; }
     }
   </style>
 </head>
 <body>
 
-  <!-- NAVIGATION -->
   <nav>
     <div class="nav-logo">Villa Eldorado</div>
     <div class="nav-links">
@@ -477,12 +101,11 @@
     </div>
   </nav>
 
-  <!-- HERO -->
   <div class="hero" id="hero">
     <div class="hero-slides">
       <img src="images/salon (1).jpg" class="active" alt="Salon">
-      <img src="images/terrasse (1).jpg" alt="Terrasse">
-      <img src="images/jardin (1).jpg" alt="Jardin">
+      <img src="images/terrasse2.jpg" alt="Terrasse">
+      <img src="images/plage (1).jpg" alt="Plage">
     </div>
     <div class="hero-overlay">
       <h1>Villa Eldorado</h1>
@@ -493,99 +116,161 @@
     <button class="hero-arrow next" onclick="heroSlide(1)">&#8250;</button>
   </div>
 
-  <!-- PRÉSENTATION -->
   <div class="container">
     <section id="presentation">
       <h2>Bienvenue à la Villa Eldorado</h2>
-
       <div class="badges">
         <span class="badge">🏠 3 chambres</span>
         <span class="badge">👥 6 à 10 pers.</span>
         <span class="badge">🏖️ Proche plages</span>
         <span class="badge">❄️ Climatisation</span>
       </div>
-
-      <p>
-        Simplifiez-vous la vie dans ce logement paisible et central pour des vacances ou un usage professionnel.
-        La Villa Eldorado est située idéalement au centre de la Martinique, permettant de rayonner sur le Nord et le Sud de l'île.
-        À moins de 5 minutes des plages, appréciez une balade au coucher du soleil, une baignade après vos journées de découvertes ou pratiquez des activités nautiques.
-        Louée en entier, la Villa est composée d'une suite parentale et de 2 grandes chambres climatisées au RDC.
-      </p>
-
+      <p>Simplifiez-vous la vie dans ce logement paisible et central pour des vacances ou un usage professionnel. La Villa Eldorado est située idéalement au centre de la Martinique, permettant de rayonner sur le Nord et le Sud de l'île. À moins de 5 minutes des plages, appréciez une balade au coucher du soleil, une baignade après vos journées de découvertes ou pratiquez des activités nautiques. Louée en entier, la Villa est composée d'une suite parentale et de 2 grandes chambres climatisées au RDC.</p>
       <details>
         <summary>En savoir plus sur le logement</summary>
-        <p>
-          La Villa Eldorado louée en entier est composée d'une suite parentale et de 2 belles chambres au RDC.<br><br>
-          <b>La suite parentale :</b> Avec sa salle de bain et sa douche à l'italienne, elle est située à l'étage et s'ouvre sur une grande terrasse extérieure couverte, endroit idéal pour déguster un ti'punch, un planteur ou quelques accras lors de vos moments de détente.<br><br>
-          <b>Les 2 chambres climatisées du rez-de-chaussée :</b> Elles se partagent la salle de bain du bas avec sa douche à l'italienne.<br><br>
-          <b>Couchages supplémentaires :</b> Le logement bénéficie aussi d'un canapé-lit 2 places très confort dans le salon et d'un couchage d'appoint dans l'espace bureau.<br><br>
-          <b>L'extérieur :</b> Spacieuse terrasse et grand jardin tropical arboré de 800 m². Le lieu privilégié pour admirer les étoiles le soir, cueillir et déguster des fruits exotiques (bananes, mangues, caïmites) ou observer les perruches.<br><br>
-          <b>La cuisine :</b> Bien équipée (micro-ondes, four, cafetière NESPRESSO…) elle se prolonge d'un côté sur un espace salon avec TV et Netflix, et de l'autre sur une spacieuse terrasse ensoleillée.<br><br>
-          Enfin, un <b>cadeau local de bienvenue</b> vous attend à l'arrivée : produits locaux, rafraîchissements et collations pour découvrir les saveurs de la Martinique dès votre arrivée !
-        </p>
+        <p><b>La suite parentale :</b> Avec sa salle de bain et sa douche à l'italienne, elle est située à l'étage et s'ouvre sur une grande terrasse extérieure couverte, endroit idéal pour déguster un ti'punch lors de vos moments de détente.<br><br><b>Les 2 chambres climatisées du rez-de-chaussée :</b> Elles se partagent la salle de bain du bas avec sa douche à l'italienne.<br><br><b>Couchages supplémentaires :</b> Canapé-lit 2 places très confort dans le salon et couchage d'appoint dans l'espace bureau.<br><br><b>L'extérieur :</b> Spacieuse terrasse et grand jardin tropical arboré de 800 m². Lieu privilégié pour admirer les étoiles, cueillir des fruits exotiques (bananes, mangues, caïmites) ou observer les perruches.<br><br><b>La cuisine :</b> Bien équipée (micro-ondes, four, cafetière NESPRESSO…) prolongée d'un espace salon avec TV et Netflix et d'une spacieuse terrasse ensoleillée.<br><br>Un <b>cadeau local de bienvenue</b> vous attend à l'arrivée !</p>
       </details>
     </section>
   </div>
 
   <hr class="separator">
 
-  <!-- GALERIE PHOTOS -->
   <div class="container">
     <section id="photos">
       <h2>Galerie photos</h2>
 
       <div class="gallery-block">
-        <h3>Salon & Jardin</h3>
-        <div class="carousel" id="salon">
+        <h3>🛋️ Salon</h3>
+        <div class="carousel" id="c-salon">
           <div class="carousel-track">
-            <img src="images/salon2 (1).jpg" alt="Salon 1">
-            <img src="images/salon3 (1).jpg" alt="Salon 2">
-            <img src="images/jardin2 (1).jpg" alt="Jardin">
+            <img src="images/salon (1).jpg" alt="Salon 1">
+            <img src="images/salon2 (1).jpg" alt="Salon 2">
+            <img src="images/salon3 (1).jpg" alt="Salon 3">
+            <img src="images/salon4 (1).jpg" alt="Salon 4">
           </div>
-          <button class="carousel-btn prev" onclick="carouselMove('salon', -1)">&#8249;</button>
-          <button class="carousel-btn next" onclick="carouselMove('salon', 1)">&#8250;</button>
-          <div class="carousel-dots" id="dots-salon"></div>
+          <button class="carousel-btn prev" onclick="carouselMove('c-salon',-1)">&#8249;</button>
+          <button class="carousel-btn next" onclick="carouselMove('c-salon',1)">&#8250;</button>
+          <div class="carousel-dots" id="dots-c-salon"></div>
         </div>
       </div>
 
       <div class="gallery-block">
-        <h3>Terrasse</h3>
-        <div class="carousel" id="terrasse">
+        <h3>🌅 Terrasse</h3>
+        <div class="carousel" id="c-terrasse">
           <div class="carousel-track">
             <img src="images/terrasse (1).jpg" alt="Terrasse 1">
             <img src="images/terrasse2.jpg" alt="Terrasse 2">
             <img src="images/terrasse3.jpg" alt="Terrasse 3">
           </div>
-          <button class="carousel-btn prev" onclick="carouselMove('terrasse', -1)">&#8249;</button>
-          <button class="carousel-btn next" onclick="carouselMove('terrasse', 1)">&#8250;</button>
-          <div class="carousel-dots" id="dots-terrasse"></div>
+          <button class="carousel-btn prev" onclick="carouselMove('c-terrasse',-1)">&#8249;</button>
+          <button class="carousel-btn next" onclick="carouselMove('c-terrasse',1)">&#8250;</button>
+          <div class="carousel-dots" id="dots-c-terrasse"></div>
         </div>
       </div>
 
       <div class="gallery-block">
-        <h3>Chambres & Salles de bain</h3>
-        <div class="carousel" id="chambres">
+        <h3>🌿 Jardin</h3>
+        <div class="carousel" id="c-jardin">
           <div class="carousel-track">
-            <img src="images/chambre_haut.jpg" alt="Chambre étage">
-            <img src="images/chambre_verte (1).jpg" alt="Chambre verte">
-            <img src="images/chambre_bleue (1).jpg" alt="Chambre bleue">
+            <img src="images/jardin (1).jpg" alt="Jardin 1">
+            <img src="images/jardin2 (1).jpg" alt="Jardin 2">
+            <img src="images/jardin3 (1).jpg" alt="Jardin 3">
+            <img src="images/jardin4 (1).jpg" alt="Jardin 4">
+          </div>
+          <button class="carousel-btn prev" onclick="carouselMove('c-jardin',-1)">&#8249;</button>
+          <button class="carousel-btn next" onclick="carouselMove('c-jardin',1)">&#8250;</button>
+          <div class="carousel-dots" id="dots-c-jardin"></div>
+        </div>
+      </div>
+
+      <div class="gallery-block">
+        <h3>🏖️ Plage à proximité</h3>
+        <div class="carousel" id="c-plage">
+          <div class="carousel-track">
+            <img src="images/plage (1).jpg" alt="Plage 1">
+            <img src="images/plage_2 (1).jpg" alt="Plage 2">
+          </div>
+          <button class="carousel-btn prev" onclick="carouselMove('c-plage',-1)">&#8249;</button>
+          <button class="carousel-btn next" onclick="carouselMove('c-plage',1)">&#8250;</button>
+          <div class="carousel-dots" id="dots-c-plage"></div>
+        </div>
+      </div>
+
+      <div class="gallery-block">
+        <h3>🛏️ Suite parentale (étage)</h3>
+        <div class="carousel" id="c-suite">
+          <div class="carousel-track">
+            <img src="images/chambre_haut.jpg" alt="Suite 1">
+            <img src="images/chambre_haut2 (2).jpg" alt="Suite 2">
+            <img src="images/chambre_haut3 (1).jpg" alt="Suite 3">
+          </div>
+          <button class="carousel-btn prev" onclick="carouselMove('c-suite',-1)">&#8249;</button>
+          <button class="carousel-btn next" onclick="carouselMove('c-suite',1)">&#8250;</button>
+          <div class="carousel-dots" id="dots-c-suite"></div>
+        </div>
+      </div>
+
+      <div class="gallery-block">
+        <h3>💚 Chambre verte</h3>
+        <div class="carousel" id="c-verte">
+          <div class="carousel-track">
+            <img src="images/chambre_verte (1).jpg" alt="Chambre verte 1">
+            <img src="images/chambre_verte2 (1).jpg" alt="Chambre verte 2">
+          </div>
+          <button class="carousel-btn prev" onclick="carouselMove('c-verte',-1)">&#8249;</button>
+          <button class="carousel-btn next" onclick="carouselMove('c-verte',1)">&#8250;</button>
+          <div class="carousel-dots" id="dots-c-verte"></div>
+        </div>
+      </div>
+
+      <div class="gallery-block">
+        <h3>💙 Chambre bleue</h3>
+        <div class="carousel" id="c-bleue">
+          <div class="carousel-track">
+            <img src="images/chambre_bleue (1).jpg" alt="Chambre bleue 1">
+            <img src="images/chambre_bleue2 (1).jpg" alt="Chambre bleue 2">
+            <img src="images/chambre_bleue3 (1).jpg" alt="Chambre bleue 3">
+          </div>
+          <button class="carousel-btn prev" onclick="carouselMove('c-bleue',-1)">&#8249;</button>
+          <button class="carousel-btn next" onclick="carouselMove('c-bleue',1)">&#8250;</button>
+          <div class="carousel-dots" id="dots-c-bleue"></div>
+        </div>
+      </div>
+
+      <div class="gallery-block">
+        <h3>🚿 Salles de bain</h3>
+        <div class="carousel" id="c-sdb">
+          <div class="carousel-track">
             <img src="images/sdb_haut (1).jpg" alt="Salle de bain 1">
             <img src="images/sdb_haut2 (1).jpg" alt="Salle de bain 2">
           </div>
-          <button class="carousel-btn prev" onclick="carouselMove('chambres', -1)">&#8249;</button>
-          <button class="carousel-btn next" onclick="carouselMove('chambres', 1)">&#8250;</button>
-          <div class="carousel-dots" id="dots-chambres"></div>
+          <button class="carousel-btn prev" onclick="carouselMove('c-sdb',-1)">&#8249;</button>
+          <button class="carousel-btn next" onclick="carouselMove('c-sdb',1)">&#8250;</button>
+          <div class="carousel-dots" id="dots-c-sdb"></div>
         </div>
       </div>
+
+      <div class="gallery-block">
+        <h3>💼 Espace bureau</h3>
+        <div class="carousel" id="c-bureau">
+          <div class="carousel-track">
+            <img src="images/bureau_haut (1).jpg" alt="Bureau 1">
+            <img src="images/bureau_haut2 (1).jpg" alt="Bureau 2">
+          </div>
+          <button class="carousel-btn prev" onclick="carouselMove('c-bureau',-1)">&#8249;</button>
+          <button class="carousel-btn next" onclick="carouselMove('c-bureau',1)">&#8250;</button>
+          <div class="carousel-dots" id="dots-c-bureau"></div>
+        </div>
+      </div>
+
     </section>
   </div>
 
   <hr class="separator">
 
-  <!-- SERVICES -->
-  <div id="services" style="background:var(--beige-fonce); padding: 3.5rem 0;">
+  <div id="services" style="background:var(--beige-fonce);padding:3.5rem 0;">
     <div class="container">
-      <h2>Nos services</h2>
+      <h2 style="font-family:'Playfair Display',serif;font-size:2rem;color:var(--vert-fonce);margin-bottom:1.5rem;position:relative;padding-bottom:0.7rem;">Nos services<span style="position:absolute;left:0;bottom:0;width:60px;height:3px;background:var(--or-fonce);border-radius:2px;display:block;"></span></h2>
       <div class="services-grid">
         <div class="service-item">🍳 Petit déjeuner</div>
         <div class="service-item">🛏️ 3 chambres, 2 SdB</div>
@@ -604,7 +289,6 @@
     </div>
   </div>
 
-  <!-- RÉSERVER -->
   <div class="container">
     <section id="reserver">
       <h2>Réserver</h2>
@@ -619,7 +303,6 @@
 
   <hr class="separator">
 
-  <!-- CONTACT -->
   <div class="container">
     <section id="contact">
       <h2>Contact</h2>
@@ -640,92 +323,62 @@
     </section>
   </div>
 
-  <!-- FOOTER -->
   <footer>
-    © 2025 Villa Eldorado – Martinique. Site réalisé avec ♥️ par vos hôtes.<br>
+    &copy; 2025 Villa Eldorado &ndash; Martinique. Site réalisé avec ♥️ par vos hôtes.<br>
     <span>Mention légale : location saisonnière déclarée en mairie</span>
   </footer>
 
-  <!-- BOUTON WHATSAPP FLOTTANT -->
-  <a href="https://wa.me/596XXXXXXXXX" class="whatsapp-float" target="_blank">
-    💬 WhatsApp
-  </a>
+  <a href="https://wa.me/596XXXXXXXXX" class="whatsapp-float" target="_blank">💬 WhatsApp</a>
 
   <script>
-    // ===== HERO SLIDER =====
-    let heroIndex = 0;
-    const heroSlides = document.querySelectorAll('.hero-slides img');
-    let heroTimer = setInterval(() => heroSlide(1), 5000);
-
-    function heroSlide(dir) {
-      heroSlides[heroIndex].classList.remove('active');
-      heroIndex = (heroIndex + dir + heroSlides.length) % heroSlides.length;
-      heroSlides[heroIndex].classList.add('active');
+    let heroIndex=0;
+    const heroImgs=document.querySelectorAll('.hero-slides img');
+    let heroTimer=setInterval(()=>heroSlide(1),5000);
+    function heroSlide(dir){
+      heroImgs[heroIndex].classList.remove('active');
+      heroIndex=(heroIndex+dir+heroImgs.length)%heroImgs.length;
+      heroImgs[heroIndex].classList.add('active');
       clearInterval(heroTimer);
-      heroTimer = setInterval(() => heroSlide(1), 5000);
+      heroTimer=setInterval(()=>heroSlide(1),5000);
     }
 
-    // ===== CARROUSELS GALERIE =====
-    const carouselState = {};
-
-    function initCarousel(id) {
-      const el = document.getElementById(id);
-      if (!el) return;
-      const imgs = el.querySelectorAll('.carousel-track img');
-      carouselState[id] = { index: 0, total: imgs.length, timer: null };
-
-      // Créer les points
-      const dotsEl = document.getElementById('dots-' + id);
-      imgs.forEach((_, i) => {
-        const dot = document.createElement('span');
-        if (i === 0) dot.classList.add('active');
-        dot.onclick = () => { carouselGo(id, i); resetTimer(id); };
+    const CS={};
+    function initCarousel(id){
+      const el=document.getElementById(id);
+      if(!el)return;
+      const imgs=el.querySelectorAll('.carousel-track img');
+      CS[id]={index:0,total:imgs.length,timer:null};
+      const dotsEl=document.getElementById('dots-'+id);
+      imgs.forEach((_,i)=>{
+        const dot=document.createElement('span');
+        if(i===0)dot.classList.add('active');
+        dot.onclick=()=>{carouselGo(id,i);resetTimer(id);};
         dotsEl.appendChild(dot);
       });
-
       startTimer(id);
     }
-
-    function startTimer(id) {
-      carouselState[id].timer = setInterval(() => carouselMove(id, 1), 4500);
-    }
-
-    function resetTimer(id) {
-      clearInterval(carouselState[id].timer);
-      startTimer(id);
-    }
-
-    function carouselMove(id, dir) {
-      const s = carouselState[id];
-      carouselGo(id, (s.index + dir + s.total) % s.total);
+    function startTimer(id){CS[id].timer=setInterval(()=>carouselMove(id,1),4500);}
+    function resetTimer(id){clearInterval(CS[id].timer);startTimer(id);}
+    function carouselMove(id,dir){
+      const s=CS[id];
+      carouselGo(id,(s.index+dir+s.total)%s.total);
       resetTimer(id);
     }
-
-    function carouselGo(id, i) {
-      const s = carouselState[id];
-      s.index = i;
-      const el = document.getElementById(id);
-      el.querySelector('.carousel-track').style.transform = `translateX(-${i * 100}%)`;
-      el.querySelectorAll('.carousel-dots span').forEach((d, j) => {
-        d.classList.toggle('active', j === i);
-      });
+    function carouselGo(id,i){
+      CS[id].index=i;
+      const el=document.getElementById(id);
+      el.querySelector('.carousel-track').style.transform=`translateX(-${i*100}%)`;
+      el.querySelectorAll('.carousel-dots span').forEach((d,j)=>d.classList.toggle('active',j===i));
     }
 
-    document.addEventListener('DOMContentLoaded', () => {
-      initCarousel('salon');
-      initCarousel('terrasse');
-      initCarousel('chambres');
+    document.addEventListener('DOMContentLoaded',()=>{
+      ['c-salon','c-terrasse','c-jardin','c-plage','c-suite','c-verte','c-bleue','c-sdb','c-bureau'].forEach(initCarousel);
     });
 
-    // Décaler la nav fixe lors du scroll vers les ancres
-    document.querySelectorAll('a[href^="#"]').forEach(a => {
-      a.addEventListener('click', e => {
-        const target = document.querySelector(a.getAttribute('href'));
-        if (target) {
-          e.preventDefault();
-          const offset = target.getBoundingClientRect().top + window.scrollY - 70;
-          window.scrollTo({ top: offset, behavior: 'smooth' });
-        }
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click',e=>{
+        const target=document.querySelector(a.getAttribute('href'));
+        if(target){e.preventDefault();window.scrollTo({top:target.getBoundingClientRect().top+window.scrollY-70,behavior:'smooth'});}
       });
     });
   </script>
