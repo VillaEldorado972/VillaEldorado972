@@ -5,349 +5,729 @@
   <title>Villa Eldorado – Location 6 à 10 personnes en Martinique</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Villa Eldorado : superbe maison 6 à 10 personnes en Martinique. Réservez sur Airbnb, Booking ou contactez-nous !">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Lato:wght@300;400;600&display=swap" rel="stylesheet">
   <style>
     :root {
       --beige: #f6f4ec;
+      --beige-fonce: #ece9de;
       --vert-pastel: #c5e6d6;
-      --vert-foncé: #87bca4;
+      --vert-fonce: #87bca4;
       --or: #e1c699;
+      --or-fonce: #c9a84c;
       --text: #35332e;
+      --blanc: #ffffff;
     }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
     body {
-      font-family: 'Segoe UI', Arial, sans-serif;
+      font-family: 'Lato', sans-serif;
       background: var(--beige);
       color: var(--text);
-      margin: 0;
     }
-    header {
-      background: linear-gradient(90deg, var(--beige) 80%, var(--vert-pastel));
-      padding: 2rem 0 1rem 0;
-      text-align: center;
+
+    /* ===== NAVIGATION ===== */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: rgba(246, 244, 236, 0.95);
+      backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.9rem 2.5rem;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.07);
     }
-    header h1 {
-      margin: 0;
-      font-size: 2.4rem;
-      color: var(--vert-foncé);
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      color: var(--vert-fonce);
+      font-weight: 700;
       letter-spacing: 1px;
     }
-    header p {
-      font-size: 1.1rem;
+    .nav-links a {
       color: var(--text);
-      margin-top: 0.5rem;
-    }
-    nav {
-      margin-top: 1.2rem;
-    }
-    nav a {
-      color: var(--vert-foncé);
-      margin: 0 1.1rem;
+      margin-left: 1.8rem;
       text-decoration: none;
       font-weight: 600;
+      font-size: 0.95rem;
+      letter-spacing: 0.5px;
       padding-bottom: 2px;
       border-bottom: 2px solid transparent;
-      transition: border-bottom 0.2s;
+      transition: color 0.2s, border-bottom 0.2s;
     }
-    nav a:hover {
-      border-bottom: 2px solid var(--vert-foncé);
+    .nav-links a:hover {
+      color: var(--vert-fonce);
+      border-bottom: 2px solid var(--vert-fonce);
     }
-    .container {
-      max-width: 950px;
-      margin: 2.2rem auto;
-      padding: 0 1rem;
-    }
-    section {
-      margin-bottom: 3rem;
-    }
-    .carousel {
-      padding: 10px;
+
+    /* ===== HERO ===== */
+    .hero {
       position: relative;
       width: 100%;
+      height: 88vh;
+      min-height: 480px;
+      max-height: 750px;
       overflow: hidden;
-      box-shadow: 0 4px 18px #0002;
-      margin-bottom: 1.7rem;
     }
-    .carousel img {
+    .hero-slides {
       width: 100%;
-      display: block;
-      max-height: 500px;
-      object-fit: contain;
-      margin: auto;
+      height: 100%;
+      position: relative;
     }
-    .carousel img.active {
-      display: block;
+    .hero-slides img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      opacity: 0;
+      transition: opacity 0.9s ease;
     }
-    .carousel button {
-       background: rgba(0,0,0,0.5);
-  color: white;
-  border: none;
-  font-size: 24px;
-  padding: 8px 12px;
-  cursor: pointer;
-  border-radius: 6px;
+    .hero-slides img.active {
+      opacity: 1;
     }
-    .carousel button.prev { left: 10px; }
-    .carousel button.next { right: 10px; }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.5) 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem;
+      z-index: 2;
+    }
+    .hero-overlay h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.4rem, 6vw, 4.5rem);
+      color: white;
+      text-shadow: 0 2px 20px rgba(0,0,0,0.5);
+      margin-bottom: 0.6rem;
+      letter-spacing: 2px;
+    }
+    .hero-overlay p {
+      font-size: clamp(1rem, 2.5vw, 1.3rem);
+      color: rgba(255,255,255,0.92);
+      text-shadow: 0 1px 8px rgba(0,0,0,0.4);
+      margin-bottom: 2rem;
+      font-weight: 300;
+      letter-spacing: 1px;
+    }
+    .btn-hero {
+      background: var(--or-fonce);
+      color: white;
+      padding: 0.9rem 2.5rem;
+      border-radius: 50px;
+      text-decoration: none;
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      transition: background 0.3s, transform 0.2s;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    }
+    .btn-hero:hover {
+      background: var(--or);
+      color: var(--text);
+      transform: translateY(-2px);
+    }
+    .hero-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 3;
+      background: rgba(255,255,255,0.25);
+      border: 2px solid rgba(255,255,255,0.6);
+      color: white;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      font-size: 1.5rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+    }
+    .hero-arrow:hover { background: rgba(255,255,255,0.45); }
+    .hero-arrow.prev { left: 1.2rem; }
+    .hero-arrow.next { right: 1.2rem; }
 
+    /* ===== CONTENEUR PRINCIPAL ===== */
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    section {
+      padding: 3.5rem 0;
+    }
+
+    section h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      color: var(--vert-fonce);
+      margin-bottom: 1.5rem;
+      position: relative;
+      padding-bottom: 0.7rem;
+    }
+    section h2::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 60px;
+      height: 3px;
+      background: var(--or-fonce);
+      border-radius: 2px;
+    }
+
+    /* ===== BADGES ===== */
     .badges {
       display: flex;
       flex-wrap: wrap;
       gap: 0.8em;
-      margin-bottom: 1.2em;
+      margin: 1.8rem 0;
     }
     .badge {
       background: var(--vert-pastel);
-      color: var(--vert-foncé);
-      border-radius: 12px;
-      padding: 0.5em 1.2em;
-      font-size: 1em;
+      color: var(--vert-fonce);
+      border-radius: 50px;
+      padding: 0.5em 1.3em;
+      font-size: 0.95em;
       font-weight: 600;
-      box-shadow: 0 1px 6px #0001;
-      letter-spacing: 0.5px;
-      border: 1px solid var(--vert-foncé);
+      border: 1.5px solid var(--vert-fonce);
+      letter-spacing: 0.3px;
     }
-    .gallery-title {
+
+    /* ===== PRÉSENTATION TEXTE ===== */
+    #presentation p {
+      font-size: 1.05rem;
+      line-height: 1.8;
+      color: var(--text);
       margin-bottom: 1rem;
-      font-size: 1.4rem;
-      color: var(--vert-foncé);
     }
+    details summary {
+      cursor: pointer;
+      font-weight: 600;
+      color: var(--vert-fonce);
+      margin-top: 1em;
+      font-size: 1rem;
+      user-select: none;
+    }
+    details p {
+      margin-top: 1em;
+      font-size: 1rem;
+      line-height: 1.8;
+    }
+
+    /* ===== SÉPARATEUR ===== */
+    .separator {
+      border: none;
+      border-top: 2px solid var(--beige-fonce);
+      margin: 0;
+    }
+
+    /* ===== CARROUSELS GALERIE ===== */
+    .gallery-block {
+      margin-bottom: 2.5rem;
+    }
+    .gallery-block h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      color: var(--vert-fonce);
+      margin-bottom: 0.8rem;
+    }
+
+    .carousel {
+      position: relative;
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 6px 28px rgba(0,0,0,0.13);
+      background: #000;
+    }
+    .carousel-track {
+      display: flex;
+      transition: transform 0.5s ease;
+    }
+    .carousel-track img {
+      min-width: 100%;
+      height: 420px;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+    }
+    .carousel-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255,255,255,0.8);
+      border: none;
+      border-radius: 50%;
+      width: 44px;
+      height: 44px;
+      font-size: 1.4rem;
+      cursor: pointer;
+      z-index: 5;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+      transition: background 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text);
+    }
+    .carousel-btn:hover { background: white; }
+    .carousel-btn.prev { left: 12px; }
+    .carousel-btn.next { right: 12px; }
+
+    .carousel-dots {
+      position: absolute;
+      bottom: 12px;
+      left: 0;
+      right: 0;
+      text-align: center;
+      z-index: 5;
+    }
+    .carousel-dots span {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.5);
+      margin: 0 4px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .carousel-dots span.active {
+      background: white;
+    }
+
+    /* ===== SERVICES ===== */
+    #services { background: var(--beige-fonce); }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+    .service-item {
+      background: white;
+      border-radius: 10px;
+      padding: 1rem 1.2rem;
+      font-size: 0.97rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    /* ===== RÉSERVER ===== */
     .resa-links {
       display: flex;
       flex-wrap: wrap;
-      gap: 1.5em;
-      margin: 2.2em 0 2em 0;
+      gap: 1.2em;
+      margin: 2rem 0;
       justify-content: center;
     }
     .resa-links a {
       display: flex;
       align-items: center;
-      background: var(--vert-foncé);
+      background: var(--vert-fonce);
       color: #fff;
       border-radius: 10px;
-      padding: 0.75em 1.7em;
-      font-size: 1.1em;
-      font-weight: 500;
+      padding: 0.8em 1.8em;
+      font-size: 1.05em;
+      font-weight: 600;
       text-decoration: none;
-      box-shadow: 0 2px 8px #0002;
-      transition: background 0.15s, box-shadow 0.2s;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.12);
+      transition: background 0.2s, transform 0.2s;
     }
     .resa-links a:hover {
-      background: var(--or);
-      color: var(--text);
-      box-shadow: 0 3px 15px #c5e6d666;
+      background: var(--or-fonce);
+      transform: translateY(-2px);
     }
+    .resa-note {
+      text-align: center;
+      font-size: 1.05em;
+      color: #5b5d4c;
+      margin-top: 0.5rem;
+    }
+
+    /* ===== CONTACT ===== */
     .contact-form {
-      background: #fff;
+      background: white;
       border-radius: 16px;
-      box-shadow: 0 6px 30px #0001;
-      padding: 2.2rem 1.5rem;
-      max-width: 500px;
+      box-shadow: 0 6px 30px rgba(0,0,0,0.07);
+      padding: 2.2rem 2rem;
+      max-width: 520px;
       margin: 0 auto;
     }
     .contact-form label {
       display: block;
       margin-top: 1.1em;
-      font-weight: 500;
+      font-weight: 600;
+      font-size: 0.95rem;
     }
-    .contact-form input, .contact-form textarea {
+    .contact-form input,
+    .contact-form textarea {
       width: 100%;
-      padding: 0.7em;
+      padding: 0.75em;
       margin-top: 0.3em;
-      border: 1px solid #cfd8dc;
-      border-radius: 7px;
+      border: 1.5px solid #d0d8dc;
+      border-radius: 8px;
       font-size: 1em;
-      background: #f4f9fa;
+      background: #f8fafa;
+      font-family: 'Lato', sans-serif;
+      transition: border-color 0.2s;
+    }
+    .contact-form input:focus,
+    .contact-form textarea:focus {
+      outline: none;
+      border-color: var(--vert-fonce);
     }
     .contact-form button {
       margin-top: 1.8em;
-      background: var(--vert-foncé);
-      color: #fff;
+      background: var(--vert-fonce);
+      color: white;
       border: none;
-      padding: 0.9em 2.2em;
-      border-radius: 7px;
-      font-size: 1.1em;
+      padding: 0.9em 2.5em;
+      border-radius: 8px;
+      font-size: 1rem;
       cursor: pointer;
       font-weight: 600;
-      transition: background 0.2s;
+      font-family: 'Lato', sans-serif;
+      transition: background 0.2s, transform 0.2s;
     }
     .contact-form button:hover {
-      background: var(--or);
-      color: var(--text);
+      background: var(--or-fonce);
+      transform: translateY(-1px);
     }
+    .whatsapp-note {
+      font-size: 0.97em;
+      color: #888;
+      margin-top: 1.2em;
+      text-align: center;
+    }
+
+    /* ===== FOOTER ===== */
     footer {
       text-align: center;
-      color: #9ca3af;
-      padding: 2em 0 1em 0;
-      font-size: 1em;
+      background: #2e2d28;
+      color: #aaa;
+      padding: 2em 0 1.5em 0;
+      font-size: 0.95em;
+      margin-top: 1rem;
     }
+    footer span {
+      font-size: 0.9em;
+      color: #888;
+    }
+
+    /* ===== BOUTON WHATSAPP FLOTTANT ===== */
+    .whatsapp-float {
+      position: fixed;
+      bottom: 1.8rem;
+      right: 1.8rem;
+      z-index: 200;
+      background: #25D366;
+      color: white;
+      border-radius: 50px;
+      padding: 0.8rem 1.4rem;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 1rem;
+      box-shadow: 0 4px 20px rgba(37,211,102,0.4);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .whatsapp-float:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 25px rgba(37,211,102,0.5);
+    }
+
+    /* ===== RESPONSIVE ===== */
     @media (max-width: 700px) {
-      header h1 { font-size: 1.3rem;}
-      .carousel img { height: 220px; }
+      nav { padding: 0.8rem 1rem; }
+      .nav-links a { margin-left: 0.9rem; font-size: 0.85rem; }
+      .hero { height: 70vh; }
+      .carousel-track img { height: 240px; }
+      .services-grid { grid-template-columns: 1fr 1fr; }
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Villa Eldorado</h1>
-    <p>Location saisonnière 6 à 10 personnes – Martinique</p>
-    <nav>
+
+  <!-- NAVIGATION -->
+  <nav>
+    <div class="nav-logo">Villa Eldorado</div>
+    <div class="nav-links">
       <a href="#presentation">Accueil</a>
       <a href="#photos">Photos</a>
       <a href="#services">Services</a>
       <a href="#reserver">Réserver</a>
       <a href="#contact">Contact</a>
-    </nav>
-  </header>
+    </div>
+  </nav>
 
+  <!-- HERO -->
+  <div class="hero" id="hero">
+    <div class="hero-slides">
+      <img src="images/salon (1).jpg" class="active" alt="Salon">
+      <img src="images/terrasse (1).jpg" alt="Terrasse">
+      <img src="images/jardin (1).jpg" alt="Jardin">
+    </div>
+    <div class="hero-overlay">
+      <h1>Villa Eldorado</h1>
+      <p>Location saisonnière · 6 à 10 personnes · Martinique</p>
+      <a href="#reserver" class="btn-hero">Réserver votre séjour</a>
+    </div>
+    <button class="hero-arrow prev" onclick="heroSlide(-1)">&#8249;</button>
+    <button class="hero-arrow next" onclick="heroSlide(1)">&#8250;</button>
+  </div>
+
+  <!-- PRÉSENTATION -->
   <div class="container">
     <section id="presentation">
-      <div class="carousel" id="banner">
-        <img src="images/salon (1).jpg" class="active" alt="Salon">
-        <img src="images/jardin (1).jpg" alt="Jardin">
-        <img src="images/chambre_bleue (1).jpg" alt="Chambre bleue">
-        <img src="images/terrasse (1).jpg" alt="Terrasse">
-        <img src="images/chambre_haut.jpg" alt="Chambre étage">
-        <img src="images/chambre_verte (1).jpg" alt="Chambre verte">
-        <img src="images/sdb_haut (1).jpg" alt="Salle de bain étage">
-        <button class="prev" onclick="prevSlide('banner')">‹</button>
-        <button class="next" onclick="nextSlide('banner')">›</button>
-      </div>
+      <h2>Bienvenue à la Villa Eldorado</h2>
 
       <div class="badges">
-        <span class="badge">3 chambres</span>
-        <span class="badge">6 à 10 pers.</span>
-        <span class="badge">Proche plages</span>
-        <span class="badge">Climatisation</span>
+        <span class="badge">🏠 3 chambres</span>
+        <span class="badge">👥 6 à 10 pers.</span>
+        <span class="badge">🏖️ Proche plages</span>
+        <span class="badge">❄️ Climatisation</span>
       </div>
 
-      <h2>Bienvenue à la Villa Eldorado</h2>
       <p>
         Simplifiez-vous la vie dans ce logement paisible et central pour des vacances ou un usage professionnel.
-        La Villa Eldorado est située idéalement au centre de la Martinique, permettant de rayonner sur le Nord et le Sud de l’île.
-        A moins de 5 minutes des plages, appréciez une balade au coucher du soleil, une baignade après vos journées de découvertes ou alors pratiquez des activités nautiques.
+        La Villa Eldorado est située idéalement au centre de la Martinique, permettant de rayonner sur le Nord et le Sud de l'île.
+        À moins de 5 minutes des plages, appréciez une balade au coucher du soleil, une baignade après vos journées de découvertes ou pratiquez des activités nautiques.
         Louée en entier, la Villa est composée d'une suite parentale et de 2 grandes chambres climatisées au RDC.
       </p>
 
       <details>
-        <summary style="cursor:pointer;font-weight:600;color:var(--vert-foncé);margin-top:1em;">En savoir plus sur le logement</summary>
-        <p style="margin-top:1em;">
+        <summary>En savoir plus sur le logement</summary>
+        <p>
           La Villa Eldorado louée en entier est composée d'une suite parentale et de 2 belles chambres au RDC.<br><br>
-          <b>La suite parentale :</b> Avec sa salle de bain et sa douche à l’italienne elle est située à l’étage et s’ouvre sur une grande terrasse extérieure couverte, endroit idéal pour déguster un ti’punch, un planteur ou quelques accras lors de vos moments de détente.<br><br>
-          <b>Les 2 chambres climatisées du rez-de-chaussée :</b> Situées au rez-de-chaussée, elles se partagent la salle de bain du bas avec sa douche à l’italienne.<br><br>
-          <b>Couchages supplémentaires :</b> Le logement bénéficie aussi d’un couchage dans le salon (canapé-lit 2 places très confort) et d’un couchage d’appoint dans l’espace bureau.<br><br>
-          <b>L'extérieur :</b> Spacieuse terrasse et grand jardin tropical arboré de 800 m². Le lieu privilégié pour admirer les étoiles le soir, profiter des bruits de la nuit tropicale, cueillir et déguster des fruits exotiques (bananes, mangues, caïmites), observer les perruches ou se détendre et profiter calmement du soleil.<br><br>
-          <b>La cuisine :</b> Bien équipée (micro-ondes, four, cafetière NESPRESSO, …) elle se prolonge d'un côté sur un espace salon avec TV (projecteur multimédia et Netflix) et de l’autre côté sur une spacieuse terrasse ensoleillée disposant de zones d’ombrages.<br><br>
-          Notre logement est aussi idéalement situé pour les voyageurs en séjour professionnel : à proximité des lycées, de l'université et des hôpitaux, dans un environnement paisible favorisant la concentration et la tranquillité.<br><br>
-          Plusieurs supermarchés se trouvent à proximité immédiate.<br><br>
-          Enfin, un <b>cadeau local de bienvenue</b> vous attend à l’arrivée : produits locaux, rafraîchissements et collations pour découvrir les saveurs de la Martinique dès votre arrivée !
+          <b>La suite parentale :</b> Avec sa salle de bain et sa douche à l'italienne, elle est située à l'étage et s'ouvre sur une grande terrasse extérieure couverte, endroit idéal pour déguster un ti'punch, un planteur ou quelques accras lors de vos moments de détente.<br><br>
+          <b>Les 2 chambres climatisées du rez-de-chaussée :</b> Elles se partagent la salle de bain du bas avec sa douche à l'italienne.<br><br>
+          <b>Couchages supplémentaires :</b> Le logement bénéficie aussi d'un canapé-lit 2 places très confort dans le salon et d'un couchage d'appoint dans l'espace bureau.<br><br>
+          <b>L'extérieur :</b> Spacieuse terrasse et grand jardin tropical arboré de 800 m². Le lieu privilégié pour admirer les étoiles le soir, cueillir et déguster des fruits exotiques (bananes, mangues, caïmites) ou observer les perruches.<br><br>
+          <b>La cuisine :</b> Bien équipée (micro-ondes, four, cafetière NESPRESSO…) elle se prolonge d'un côté sur un espace salon avec TV et Netflix, et de l'autre sur une spacieuse terrasse ensoleillée.<br><br>
+          Enfin, un <b>cadeau local de bienvenue</b> vous attend à l'arrivée : produits locaux, rafraîchissements et collations pour découvrir les saveurs de la Martinique dès votre arrivée !
         </p>
       </details>
     </section>
+  </div>
 
+  <hr class="separator">
+
+  <!-- GALERIE PHOTOS -->
+  <div class="container">
     <section id="photos">
       <h2>Galerie photos</h2>
 
-      <h3 class="gallery-title">Salon & Jardin</h3>
-      <div class="carousel" id="salon">
-        <img src="images/salon2 (1).jpg" class="active" alt="Salon 1">
-        <img src="images/salon3 (1).jpg" alt="Salon 2">
-        <img src="images/jardin2 (1).jpg" alt="Jardin 1">
-        <button class="prev" onclick="prevSlide('salon')">‹</button>
-        <button class="next" onclick="nextSlide('salon')">›</button>
+      <div class="gallery-block">
+        <h3>Salon & Jardin</h3>
+        <div class="carousel" id="salon">
+          <div class="carousel-track">
+            <img src="images/salon2 (1).jpg" alt="Salon 1">
+            <img src="images/salon3 (1).jpg" alt="Salon 2">
+            <img src="images/jardin2 (1).jpg" alt="Jardin">
+          </div>
+          <button class="carousel-btn prev" onclick="carouselMove('salon', -1)">&#8249;</button>
+          <button class="carousel-btn next" onclick="carouselMove('salon', 1)">&#8250;</button>
+          <div class="carousel-dots" id="dots-salon"></div>
+        </div>
       </div>
 
-      <h3 class="gallery-title">Terrasse</h3>
-      <div class="carousel" id="terrasse">
-        <img src="images/terrasse (1).jpg" class="active" alt="Terrasse 1">
-        <img src="images/terrasse2.jpg" alt="Terrasse 2">
-        <img src="images/terrasse3.jpg" alt="Terrasse 3">
-        <button class="prev" onclick="prevSlide('terrasse')">‹</button>
-        <button class="next" onclick="nextSlide('terrasse')">›</button>
+      <div class="gallery-block">
+        <h3>Terrasse</h3>
+        <div class="carousel" id="terrasse">
+          <div class="carousel-track">
+            <img src="images/terrasse (1).jpg" alt="Terrasse 1">
+            <img src="images/terrasse2.jpg" alt="Terrasse 2">
+            <img src="images/terrasse3.jpg" alt="Terrasse 3">
+          </div>
+          <button class="carousel-btn prev" onclick="carouselMove('terrasse', -1)">&#8249;</button>
+          <button class="carousel-btn next" onclick="carouselMove('terrasse', 1)">&#8250;</button>
+          <div class="carousel-dots" id="dots-terrasse"></div>
+        </div>
       </div>
 
-      <h3 class="gallery-title">Chambres & Salles de bain</h3>
-      <div class="carousel" id="chambres">
-        <img src="images/chambre_haut.jpg" class="active" alt="Chambre 1">
-        <img src="images/chambre_verte (1).jpg" alt="Chambre 2">
-        <img src="images/chambre_bleue (1).jpg" alt="Chambre 3">
-        <img src="images/sdb_haut (1).jpg" alt="Salle de bain 1">
-        <img src="images/sdb_haut2 (1).jpg" alt="Salle de bain 1">
-        <button class="prev" onclick="prevSlide('chambres')">‹</button>
-        <button class="next" onclick="nextSlide('chambres')">›</button>
+      <div class="gallery-block">
+        <h3>Chambres & Salles de bain</h3>
+        <div class="carousel" id="chambres">
+          <div class="carousel-track">
+            <img src="images/chambre_haut.jpg" alt="Chambre étage">
+            <img src="images/chambre_verte (1).jpg" alt="Chambre verte">
+            <img src="images/chambre_bleue (1).jpg" alt="Chambre bleue">
+            <img src="images/sdb_haut (1).jpg" alt="Salle de bain 1">
+            <img src="images/sdb_haut2 (1).jpg" alt="Salle de bain 2">
+          </div>
+          <button class="carousel-btn prev" onclick="carouselMove('chambres', -1)">&#8249;</button>
+          <button class="carousel-btn next" onclick="carouselMove('chambres', 1)">&#8250;</button>
+          <div class="carousel-dots" id="dots-chambres"></div>
+        </div>
       </div>
     </section>
+  </div>
 
-    <section id="services">
+  <hr class="separator">
+
+  <!-- SERVICES -->
+  <div id="services" style="background:var(--beige-fonce); padding: 3.5rem 0;">
+    <div class="container">
       <h2>Nos services</h2>
-      <ul class="services">
-        <li>🍳Petit déjeuner</li>
-        <li>3 chambres, 2 salles de bain</li>
-        <li>❄️Climatisation</li>
-        <li>📶Wifi haut débit</li>
-        <li>🛏️Fourniture de linge de maison </li>
-        <li>🍽️Cuisine équipée</li>
-        <li>👶Équipement bébé sur demande</li>
-        <li>Machine à laver</li>
-        <li>🚗Parking gratuit</li>
-        <li>👋Réception de la clientèle</li>
-        <li>Barbecue</li>
-        <li>Proche plage & commerces</li>
-        <li>🧹Nettoyage régulier des locaux (payant)</li>
-      </ul>
-    </section>
+      <div class="services-grid">
+        <div class="service-item">🍳 Petit déjeuner</div>
+        <div class="service-item">🛏️ 3 chambres, 2 SdB</div>
+        <div class="service-item">❄️ Climatisation</div>
+        <div class="service-item">📶 Wifi haut débit</div>
+        <div class="service-item">🛏️ Linge de maison</div>
+        <div class="service-item">🍽️ Cuisine équipée</div>
+        <div class="service-item">👶 Équipement bébé</div>
+        <div class="service-item">🫧 Machine à laver</div>
+        <div class="service-item">🚗 Parking gratuit</div>
+        <div class="service-item">👋 Réception clients</div>
+        <div class="service-item">🔥 Barbecue</div>
+        <div class="service-item">🏖️ Proche plages</div>
+        <div class="service-item">🧹 Nettoyage (payant)</div>
+      </div>
+    </div>
+  </div>
 
+  <!-- RÉSERVER -->
+  <div class="container">
     <section id="reserver">
       <h2>Réserver</h2>
       <div class="resa-links">
-        <a href="https://www.meilleureslocations.fr/property/villa-eldorado-6-%C3%A0-10-personnes/BC-11983327" target="_blank">Voir sur Meilleures Locations</a>
-        <a href="https://www.airbnb.fr/rooms/844784313755272235?unique_share_id=0b30b1cb-2b74-44bc-9fdf-24220016918c&viralityEntryPoint=1&s=76" target="_blank">Voir sur Airbnb</a>
-        <a href="https://www.booking.com/Share-m30BVw0" target="_blank">Voir sur Booking.com</a>
+        <a href="https://www.meilleureslocations.fr/property/villa-eldorado-6-%C3%A0-10-personnes/BC-11983327" target="_blank">Meilleures Locations</a>
+        <a href="https://www.airbnb.fr/rooms/844784313755272235?unique_share_id=0b30b1cb-2b74-44bc-9fdf-24220016918c&viralityEntryPoint=1&s=76" target="_blank">Airbnb</a>
+        <a href="https://www.booking.com/Share-m30BVw0" target="_blank">Booking.com</a>
       </div>
-      <p style="text-align:center;font-size:1.1em;color:#5b5d4c;">
-        Ou contactez-nous directement pour un devis personnalisé et la dispo à jour !
-      </p>
+      <p class="resa-note">Ou contactez-nous directement pour un devis personnalisé et les disponibilités à jour !</p>
     </section>
+  </div>
 
+  <hr class="separator">
+
+  <!-- CONTACT -->
+  <div class="container">
     <section id="contact">
       <h2>Contact</h2>
       <div class="contact-form">
         <form action="https://formsubmit.co/ton@email.com" method="POST">
           <label for="name">Nom</label>
-          <input type="text" id="name" name="name" required>
+          <input type="text" id="name" name="name" required placeholder="Votre nom">
           <label for="email">Email</label>
-          <input type="email" id="email" name="email" required>
+          <input type="email" id="email" name="email" required placeholder="votre@email.com">
           <label for="message">Votre message</label>
-          <textarea id="message" name="message" rows="4" required></textarea>
+          <textarea id="message" name="message" rows="4" required placeholder="Dates souhaitées, nombre de personnes..."></textarea>
           <input type="text" name="_honey" style="display:none">
           <input type="hidden" name="_next" value="https://villaeldorado972.github.io/merci.html">
           <button type="submit">Envoyer</button>
         </form>
-        <p style="font-size:0.97em;color:#888;margin-top:1.2em;">
-          Ou contactez-nous par WhatsApp au <b>+596 X XX XX XX XX</b>
-        </p>
+        <p class="whatsapp-note">Ou contactez-nous par WhatsApp au <b>+596 X XX XX XX XX</b></p>
       </div>
     </section>
   </div>
 
+  <!-- FOOTER -->
   <footer>
-    © 2025 Villa Eldorado – Martinique. Site réalisé avec ♥️ par vos hôtes.
-    <br>
-    <span style="font-size:0.95em;">Mention légale : location saisonnière déclarée en mairie</span>
+    © 2025 Villa Eldorado – Martinique. Site réalisé avec ♥️ par vos hôtes.<br>
+    <span>Mention légale : location saisonnière déclarée en mairie</span>
   </footer>
 
+  <!-- BOUTON WHATSAPP FLOTTANT -->
+  <a href="https://wa.me/596XXXXXXXXX" class="whatsapp-float" target="_blank">
+    💬 WhatsApp
+  </a>
+
   <script>
-    function nextSlide(id){
-      const slides = document.querySelectorAll(`#${id} img`);
-      let i = [...slides].findIndex(img => img.classList.contains("active"));
-      slides[i].classList.remove("active");
-      slides[(i+1)%slides.length].classList.add("active");
+    // ===== HERO SLIDER =====
+    let heroIndex = 0;
+    const heroSlides = document.querySelectorAll('.hero-slides img');
+    let heroTimer = setInterval(() => heroSlide(1), 5000);
+
+    function heroSlide(dir) {
+      heroSlides[heroIndex].classList.remove('active');
+      heroIndex = (heroIndex + dir + heroSlides.length) % heroSlides.length;
+      heroSlides[heroIndex].classList.add('active');
+      clearInterval(heroTimer);
+      heroTimer = setInterval(() => heroSlide(1), 5000);
     }
-    function prevSlide(id){
-      const slides = document.querySelectorAll(`#${id} img`);
-      let i = [...slides].findIndex(img => img.classList.contains("active"));
-      slides[i].classList.remove("active");
-      slides[(i-1+slides.length)%slides.length].classList.add("active");
+
+    // ===== CARROUSELS GALERIE =====
+    const carouselState = {};
+
+    function initCarousel(id) {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const imgs = el.querySelectorAll('.carousel-track img');
+      carouselState[id] = { index: 0, total: imgs.length, timer: null };
+
+      // Créer les points
+      const dotsEl = document.getElementById('dots-' + id);
+      imgs.forEach((_, i) => {
+        const dot = document.createElement('span');
+        if (i === 0) dot.classList.add('active');
+        dot.onclick = () => { carouselGo(id, i); resetTimer(id); };
+        dotsEl.appendChild(dot);
+      });
+
+      startTimer(id);
     }
+
+    function startTimer(id) {
+      carouselState[id].timer = setInterval(() => carouselMove(id, 1), 4500);
+    }
+
+    function resetTimer(id) {
+      clearInterval(carouselState[id].timer);
+      startTimer(id);
+    }
+
+    function carouselMove(id, dir) {
+      const s = carouselState[id];
+      carouselGo(id, (s.index + dir + s.total) % s.total);
+      resetTimer(id);
+    }
+
+    function carouselGo(id, i) {
+      const s = carouselState[id];
+      s.index = i;
+      const el = document.getElementById(id);
+      el.querySelector('.carousel-track').style.transform = `translateX(-${i * 100}%)`;
+      el.querySelectorAll('.carousel-dots span').forEach((d, j) => {
+        d.classList.toggle('active', j === i);
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      initCarousel('salon');
+      initCarousel('terrasse');
+      initCarousel('chambres');
+    });
+
+    // Décaler la nav fixe lors du scroll vers les ancres
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        const target = document.querySelector(a.getAttribute('href'));
+        if (target) {
+          e.preventDefault();
+          const offset = target.getBoundingClientRect().top + window.scrollY - 70;
+          window.scrollTo({ top: offset, behavior: 'smooth' });
+        }
+      });
+    });
   </script>
 </body>
 </html>
-
